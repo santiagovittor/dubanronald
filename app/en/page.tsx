@@ -1,7 +1,15 @@
+// app/en/page.tsx
+import type { Metadata } from "next"
 import Nav from "@/components/Nav"
 import Hero from "@/components/Hero"
 
-export default function Home() {
+export const metadata: Metadata = {
+  title: "Duban Ronald — growth systems for digital acquisition",
+  description:
+    "Digital acquisition, paid media, and performance infrastructure for teams that treat marketing as a system, not a campaign.",
+}
+
+export default function HomeEn() {
   return (
     <>
       <Nav />
@@ -69,10 +77,10 @@ export default function Home() {
           </div>
 
           <a
-            href="mailto:hello@dubanronald.com"
+            href="mailto:contact@youragency.com"
             className="inline-block underline underline-offset-4"
           >
-            hello@dubanronald.com
+            contact@youragency.com
           </a>
         </section>
       </main>
