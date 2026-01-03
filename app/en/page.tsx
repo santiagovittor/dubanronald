@@ -77,10 +77,10 @@ export default function HomeEn() {
           </div>
 
           <a
-            href="mailto:contact@youragency.com"
+            href="mailto:hello@dubanronald.com"
             className="inline-block underline underline-offset-4"
           >
-            contact@youragency.com
+            hello@dubanronald.com
           </a>
         </section>
       </main>
