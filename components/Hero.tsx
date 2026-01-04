@@ -19,24 +19,18 @@ export default function Hero({ locale = "en" }: HeroProps) {
     }
   })
 
-  // Escucha cambios en prefers-reduced-motion
+  // prefers-reduced-motion listener
   useEffect(() => {
     if (typeof window === "undefined" || !window.matchMedia) return
 
     const mq = window.matchMedia("(prefers-reduced-motion: reduce)")
-
-    const handleChange = (event: MediaQueryListEvent) => {
-      setReducedMotion(event.matches)
-    }
+    const handleChange = (event: MediaQueryListEvent) => setReducedMotion(event.matches)
 
     mq.addEventListener("change", handleChange)
-
-    return () => {
-      mq.removeEventListener("change", handleChange)
-    }
+    return () => mq.removeEventListener("change", handleChange)
   }, [])
 
-  // Scroll → progress
+  // Scroll → progress (0..1 over the 200vh section)
   useEffect(() => {
     if (typeof window === "undefined") return
 
@@ -62,7 +56,6 @@ export default function Hero({ locale = "en" }: HeroProps) {
 
       const raw = (scrollY - sectionTop) / scrollRange
       const clamped = Math.min(1, Math.max(0, raw))
-
       setProgress(clamped)
     }
 
@@ -71,7 +64,6 @@ export default function Hero({ locale = "en" }: HeroProps) {
       frameId = window.requestAnimationFrame(updateProgress)
     }
 
-    // inicial
     handleScrollOrResize()
 
     window.addEventListener("scroll", handleScrollOrResize, { passive: true })
@@ -84,11 +76,10 @@ export default function Hero({ locale = "en" }: HeroProps) {
     }
   }, [])
 
-  // Respeto a prefers-reduced-motion
   const effectiveProgress = reducedMotion ? 0 : progress
 
-  // 0.00–0.70: crece (resistance)
-  // 0.70–0.90: se desvanece
+  // 0.00–0.70: grow
+  // 0.70–0.90: fade
   // >0.90: invisible
   const growEnd = 0.7
   const fadeEnd = 0.9
@@ -125,17 +116,16 @@ export default function Hero({ locale = "en" }: HeroProps) {
     : "Digital acquisition, paid media, and performance infrastructure for teams that treat marketing as a system, not a campaign."
 
   return (
-    <section ref={sectionRef} className="relative h-[200vh]">
-      <div className="sticky top-0 flex h-screen items-center">
+    <section ref={sectionRef} className="relative h-[200vh] overflow-x-clip">
+      {/* Nav is fixed h-16 (4rem). Keep the hero sticky BELOW it. */}
+      <div className="sticky top-16 flex h-[calc(100svh-4rem)] items-center pb-[env(safe-area-inset-bottom)]">
         <div className="max-w-3xl space-y-5 origin-left" style={blockStyle}>
           <h1 className="text-[clamp(4.25rem,8vw,6rem)] font-semibold tracking-tight leading-[0.9]">
             <span className="block">{line1}</span>
             <span className="block">{line2}</span>
           </h1>
 
-          <p className="text-sm text-neutral-400 leading-relaxed">
-            {subcopy}
-          </p>
+          <p className="text-sm text-neutral-400 leading-relaxed">{subcopy}</p>
         </div>
       </div>
     </section>

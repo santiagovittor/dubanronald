@@ -9,10 +9,11 @@
 html {
   background-color: var(--bg);
   color: var(--fg);
+  overflow-x: hidden;
 }
 
 body {
-  padding-top: 4rem; /* matches Nav h-16 (4rem) so content never goes under it */
+  overflow-x: hidden;
   font-feature-settings: "liga" 1, "kern" 1;
   -webkit-font-smoothing: antialiased;
 }
