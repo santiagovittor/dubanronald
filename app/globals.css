@@ -9,11 +9,22 @@
 html {
   background-color: var(--bg);
   color: var(--fg);
-  overflow-x: hidden;
 }
 
 body {
-  overflow-x: hidden;
   font-feature-settings: "liga" 1, "kern" 1;
   -webkit-font-smoothing: antialiased;
+}
+
+/* Clip paint to prevent horizontal scrollbar without breaking sticky */
+.hero-clip {
+  contain: paint;
+  overflow-x: clip;
+  overflow-y: visible;
+}
+
+@supports not (overflow: clip) {
+  .hero-clip {
+    overflow-x: hidden;
+  }
 }
