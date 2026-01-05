@@ -1,28 +1,8 @@
 import Nav from "@/components/Nav"
 import Hero from "@/components/Hero"
-
-const WHATSAPP_NUMBER = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER
-
-declare global {
-  interface Window {
-    gtag?: (...args: any[]) => void
-  }
-}
+import ContactLinks from "@/components/ContactLinks"
 
 export default function Home() {
-  const whatsappHref = WHATSAPP_NUMBER
-    ? `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(
-        "Hello — I’d like to discuss growth systems for our business."
-      )}`
-    : null
-
-  const track = (eventName: string) => {
-    if (typeof window === "undefined") return
-    window.gtag?.("event", eventName, {
-      page_path: window.location.pathname,
-    })
-  }
-
   return (
     <>
       <Nav />
@@ -71,7 +51,10 @@ export default function Home() {
           </div>
         </section>
 
-        <section id="contact" className="mt-24 md:mt-32 max-w-2xl space-y-6 scroll-mt-24">
+        <section
+          id="contact"
+          className="mt-24 md:mt-32 max-w-2xl space-y-6 scroll-mt-24"
+        >
           <h2 className="text-xl font-medium">Contact</h2>
 
           <p className="text-neutral-500 leading-relaxed">
@@ -89,27 +72,7 @@ export default function Home() {
             </ul>
           </div>
 
-          <div className="space-y-3">
-            <a
-              href="mailto:hello@dubanronald.com"
-              onClick={() => track("contact_email_click")}
-              className="inline-block underline underline-offset-4"
-            >
-              hello@dubanronald.com
-            </a>
-
-            {whatsappHref ? (
-              <a
-                href={whatsappHref}
-                target="_blank"
-                rel="noopener noreferrer"
-                onClick={() => track("contact_whatsapp_click")}
-                className="block text-sm text-[var(--muted)] underline-offset-4 transition hover:text-[var(--fg)] hover:underline"
-              >
-                WhatsApp
-              </a>
-            ) : null}
-          </div>
+          <ContactLinks locale="en" />
         </section>
       </main>
     </>

@@ -4,6 +4,7 @@ import Script from "next/script"
 import { Inter } from "next/font/google"
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://dubanronald.com"),
   title: "Duban Ronald | Growth systems for digital acquisition",
   description:
     "Digital marketing and growth systems for teams that treat marketing as a continuous system, not isolated campaigns.",
@@ -21,7 +22,10 @@ export const metadata: Metadata = {
       "Digital acquisition, paid media, and performance infrastructure for teams that treat marketing as a system, not a campaign.",
   },
   alternates: {
-    languages: { en: "/", es: "/es" },
+    languages: {
+      en: "https://dubanronald.com/",
+      es: "https://dubanronald.com/es",
+    },
   },
 }
 
