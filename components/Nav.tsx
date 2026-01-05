@@ -9,14 +9,14 @@ export default function Nav({ locale = "en" }: NavProps) {
 
   const linkBase = "transition hover:text-[var(--fg)]"
   const linkActive = "text-[var(--fg)]"
-  const linkInactive = "text-neutral-500"
+  const linkInactive = "text-neutral-400"
 
   return (
     <nav className="fixed top-0 left-0 right-0 z-20 bg-[var(--bg)]">
       <div className="mx-auto flex h-16 max-w-5xl items-center justify-between px-6">
         <a
           href={homeHref}
-          className="min-w-0 truncate text-xs font-medium uppercase tracking-[0.22em] text-neutral-400 whitespace-nowrap transition hover:text-[var(--fg)]"
+          className="min-w-0 truncate text-xs font-medium uppercase tracking-[0.22em] text-neutral-300 whitespace-nowrap transition hover:text-[var(--fg)]"
           aria-label="Duban Ronald home"
         >
           DUBAN RONALD
@@ -31,7 +31,7 @@ export default function Nav({ locale = "en" }: NavProps) {
             >
               EN
             </a>
-            <span className="text-neutral-700">/</span>
+            <span className="text-neutral-600">/</span>
             <a
               href="/es"
               aria-current={!isEn ? "page" : undefined}
