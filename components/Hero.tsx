@@ -6,6 +6,9 @@ type HeroProps = {
   locale?: "en" | "es"
 }
 
+type IdleCallbackHandle = number
+type IdleCallbackDeadline = { didTimeout: boolean; timeRemaining: () => number }
+
 export default function Hero({ locale = "en" }: HeroProps) {
   const sectionRef = useRef<HTMLElement | null>(null)
 
@@ -44,6 +47,8 @@ export default function Hero({ locale = "en" }: HeroProps) {
   useEffect(() => {
     if (typeof window === "undefined") return
 
+    const w = window as unknown as Window & typeof globalThis
+
     const section = sectionRef.current
     const overlay = overlayRef.current
     const headline = headlineRef.current
@@ -54,10 +59,6 @@ export default function Hero({ locale = "en" }: HeroProps) {
 
     const clamp01 = (n: number) => Math.min(1, Math.max(0, n))
 
-    // This is the “resistance” mapping (same spirit as your original):
-    // 0–0.70: grow
-    // 0.70–0.92: keep growing slightly + start fading subcopy
-    // 0.92–1.00: fade hero to 0 (ONLY when the next content is already present)
     const computeTargets = (p: number) => {
       const growEnd = 0.7
       const subFadeStart = 0.62
@@ -67,10 +68,10 @@ export default function Hero({ locale = "en" }: HeroProps) {
       let targetScale = 1
       if (p <= growEnd) {
         const t = p / growEnd
-        targetScale = 1 + t * 0.22 // strong enough to feel it
+        targetScale = 1 + t * 0.22
       } else {
         const t = (p - growEnd) / (1 - growEnd)
-        targetScale = 1.22 + t * 0.06 // -> ~1.28
+        targetScale = 1.22 + t * 0.06
       }
 
       let heroOpacity = 1
@@ -98,14 +99,13 @@ export default function Hero({ locale = "en" }: HeroProps) {
       const p = reducedMotion ? 0 : targetPRef.current
       const { targetScale, heroOpacity, subOpacity, subShift } = computeTargets(p)
 
-      // Smoothing = resistance feel.
-      // Lower = heavier. Higher = snappier.
       const alpha = 0.14
 
       scaleRef.current = scaleRef.current + (targetScale - scaleRef.current) * alpha
       heroOpacityRef.current =
         heroOpacityRef.current + (heroOpacity - heroOpacityRef.current) * alpha
-      subOpacityRef.current = subOpacityRef.current + (subOpacity - subOpacityRef.current) * alpha
+      subOpacityRef.current =
+        subOpacityRef.current + (subOpacity - subOpacityRef.current) * alpha
       subShiftRef.current = subShiftRef.current + (subShift - subShiftRef.current) * alpha
 
       headline.style.transform = `translate3d(0,0,0) scale(${scaleRef.current})`
@@ -114,12 +114,10 @@ export default function Hero({ locale = "en" }: HeroProps) {
       subcopy.style.opacity = String(subOpacityRef.current)
       subcopy.style.transform = `translate3d(0, ${subShiftRef.current}px, 0)`
 
-      // Dot bounce only at top (before scroll)
       const atTop = p <= 0.001
       if (!reducedMotion) dot.classList.toggle("dr-dot-bounce", atTop)
       else dot.classList.remove("dr-dot-bounce")
 
-      // Hide overlay completely once essentially invisible (so it stops intercepting anything)
       overlay.style.pointerEvents = heroOpacityRef.current <= 0.02 ? "none" : "auto"
 
       const still =
@@ -128,18 +126,18 @@ export default function Hero({ locale = "en" }: HeroProps) {
         Math.abs(subOpacity - subOpacityRef.current) > 0.003 ||
         Math.abs(subShift - subShiftRef.current) > 0.25
 
-      if (still) rafAnimRef.current = window.requestAnimationFrame(apply)
+      if (still) rafAnimRef.current = w.requestAnimationFrame(apply)
     }
 
     const scheduleApply = () => {
       if (rafAnimRef.current !== null) return
-      rafAnimRef.current = window.requestAnimationFrame(apply)
+      rafAnimRef.current = w.requestAnimationFrame(apply)
     }
 
     const updateProgress = () => {
       rafScrollRef.current = null
 
-      const viewportHeight = window.innerHeight || 1
+      const viewportHeight = w.innerHeight || 1
       const sectionHeight = section.offsetHeight || viewportHeight
       const scrollRange = sectionHeight - viewportHeight
 
@@ -150,7 +148,6 @@ export default function Hero({ locale = "en" }: HeroProps) {
       }
 
       const rect = section.getBoundingClientRect()
-      // rect.top goes from 0 -> -scrollRange as you scroll through it
       const raw = -rect.top / scrollRange
       targetPRef.current = clamp01(raw)
 
@@ -159,18 +156,53 @@ export default function Hero({ locale = "en" }: HeroProps) {
 
     const onScrollOrResize = () => {
       if (rafScrollRef.current !== null) return
-      rafScrollRef.current = window.requestAnimationFrame(updateProgress)
+      rafScrollRef.current = w.requestAnimationFrame(updateProgress)
     }
 
-    onScrollOrResize()
-    window.addEventListener("scroll", onScrollOrResize, { passive: true })
-    window.addEventListener("resize", onScrollOrResize)
+    if (!reducedMotion) dot.classList.add("dr-dot-bounce")
+    else dot.classList.remove("dr-dot-bounce")
+
+    let started = false
+    let startRaf: number | null = null
+    let idleId: IdleCallbackHandle | null = null
+    let startTimeout: ReturnType<typeof setTimeout> | null = null
+
+    const start = () => {
+      if (started) return
+      started = true
+
+      onScrollOrResize()
+      w.addEventListener("scroll", onScrollOrResize, { passive: true })
+      w.addEventListener("resize", onScrollOrResize)
+    }
+
+    startRaf = w.requestAnimationFrame(() => {
+      const ric = (w as unknown as { requestIdleCallback?: (cb: () => void, opts?: { timeout: number }) => number })
+        .requestIdleCallback
+
+      if (typeof ric === "function") {
+        idleId = ric(start, { timeout: 1200 })
+      } else {
+        startTimeout = setTimeout(start, 350)
+      }
+    })
 
     return () => {
-      window.removeEventListener("scroll", onScrollOrResize)
-      window.removeEventListener("resize", onScrollOrResize)
-      if (rafScrollRef.current !== null) window.cancelAnimationFrame(rafScrollRef.current)
-      if (rafAnimRef.current !== null) window.cancelAnimationFrame(rafAnimRef.current)
+      if (started) {
+        w.removeEventListener("scroll", onScrollOrResize)
+        w.removeEventListener("resize", onScrollOrResize)
+      }
+
+      if (startRaf !== null) w.cancelAnimationFrame(startRaf)
+
+      const cic = (w as unknown as { cancelIdleCallback?: (id: number) => void }).cancelIdleCallback
+      if (idleId !== null && typeof cic === "function") cic(idleId)
+
+      if (startTimeout !== null) clearTimeout(startTimeout)
+
+      if (rafScrollRef.current !== null) w.cancelAnimationFrame(rafScrollRef.current)
+      if (rafAnimRef.current !== null) w.cancelAnimationFrame(rafAnimRef.current)
+
       rafScrollRef.current = null
       rafAnimRef.current = null
     }
@@ -185,10 +217,8 @@ export default function Hero({ locale = "en" }: HeroProps) {
 
   return (
     <>
-      {/* Scroll driver: this provides scroll distance, but does not move the hero visually */}
       <section ref={sectionRef} className="relative h-[160vh]" />
 
-      {/* Fixed overlay: the hero is truly pinned */}
       <div
         ref={overlayRef}
         className="fixed left-0 right-0 top-16 z-10 flex h-[calc(100svh-4rem)] items-center"
