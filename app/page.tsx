@@ -49,6 +49,28 @@ export default function Home() {
               </span>
             </div>
           </div>
+
+          <div className="space-y-3 text-sm pt-2">
+            <div className="flex gap-6">
+              <span className="w-28 shrink-0 font-medium text-neutral-200">Real estate</span>
+              <a
+                href="/real-estate"
+                className="text-[var(--muted)] leading-relaxed underline-offset-4 transition hover:text-[var(--fg)] hover:underline"
+              >
+                Acquisition systems for high-consideration sales cycles.
+              </a>
+            </div>
+
+            <div className="flex gap-6">
+              <span className="w-28 shrink-0 font-medium text-neutral-200">Analytics</span>
+              <a
+                href="/analytics-tracking"
+                className="text-[var(--muted)] leading-relaxed underline-offset-4 transition hover:text-[var(--fg)] hover:underline"
+              >
+                Measurement systems built for decisions.
+              </a>
+            </div>
+          </div>
         </section>
 
         <section id="contact" className="max-w-2xl space-y-6 scroll-mt-24">

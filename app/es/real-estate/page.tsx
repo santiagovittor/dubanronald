@@ -8,13 +8,13 @@ export const metadata: Metadata = {
   description:
     "Sistemas de growth, paid media y analytics para equipos que tratan al marketing como un sistema continuo, no como campañas aisladas.",
   openGraph: {
-    title: "Duban Ronald | Sistemas de growth para adquisición digital",
+    title: "Duban Ronald — Sistemas de growth para adquisición digital",
     description:
       "Adquisición digital, paid media e infraestructura de performance para equipos que tratan al marketing como un sistema, no como campañas aisladas.",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Duban Ronald | Sistemas de growth para adquisición digital",
+    title: "Duban Ronald — Sistemas de growth para adquisición digital",
     description:
       "Adquisición digital, paid media e infraestructura de performance para equipos que tratan al marketing como un sistema, no como campañas aisladas.",
   },
@@ -68,27 +68,16 @@ export default function HomeEs() {
             </div>
           </div>
 
-          <div className="space-y-3 text-sm pt-2">
-            <div className="flex gap-6">
-              <span className="w-28 shrink-0 font-medium text-neutral-200">Real estate</span>
-              <a
-                href="/es/real-estate"
-                className="text-[var(--muted)] leading-relaxed underline-offset-4 transition hover:text-[var(--fg)] hover:underline"
-              >
-                Sistemas de adquisición para ciclos de venta de alta consideración.
-              </a>
-            </div>
-
-            <div className="flex gap-6">
-              <span className="w-28 shrink-0 font-medium text-neutral-200">Analytics</span>
-              <a
-                href="/es/analytics-tracking"
-                className="text-[var(--muted)] leading-relaxed underline-offset-4 transition hover:text-[var(--fg)] hover:underline"
-              >
-                Sistemas de medición para tomar decisiones.
-              </a>
-            </div>
-          </div>
+          <p className="text-sm text-[var(--muted)] leading-relaxed">
+            Real estate:{" "}
+            <a
+              href="/es/real-estate"
+              className="text-neutral-200 underline underline-offset-4 transition hover:text-[var(--fg)]"
+            >
+              sistemas de adquisición para ciclos de venta de alta consideración
+            </a>
+            .
+          </p>
         </section>
 
         <section id="contact" className="max-w-2xl space-y-6 scroll-mt-24">
