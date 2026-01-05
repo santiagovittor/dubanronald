@@ -7,12 +7,23 @@ export const metadata: Metadata = {
   title: "Duban Ronald | Agencia de marketing digital y growth",
   description:
     "Sistemas de growth, paid media y analytics para equipos que tratan al marketing como un sistema continuo, no como campañas aisladas.",
+  openGraph: {
+    title: "Duban Ronald | Sistemas de growth para adquisición digital",
+    description:
+      "Adquisición digital, paid media e infraestructura de performance para equipos que tratan al marketing como un sistema, no como campañas aisladas.",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Duban Ronald | Sistemas de growth para adquisición digital",
+    description:
+      "Adquisición digital, paid media e infraestructura de performance para equipos que tratan al marketing como un sistema, no como campañas aisladas.",
+  },
 }
 
 export default function HomeEs() {
   return (
     <>
-      <Nav />
+      <Nav locale="es" />
 
       <main className="mx-auto max-w-5xl px-6 pt-16 pb-24 md:pb-32 space-y-24 md:space-y-32">
         <Hero locale="es" />

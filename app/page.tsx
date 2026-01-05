@@ -5,7 +5,7 @@ import ContactLinks from "@/components/ContactLinks"
 export default function Home() {
   return (
     <>
-      <Nav />
+      <Nav locale="en" />
 
       <main className="mx-auto max-w-5xl px-6 pt-16 pb-24 md:pb-32 space-y-24 md:space-y-32">
         <Hero locale="en" />

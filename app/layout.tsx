@@ -9,15 +9,16 @@ export const metadata: Metadata = {
   description:
     "Digital marketing and growth systems for teams that treat marketing as a continuous system, not isolated campaigns.",
   robots: { index: true, follow: true },
+  themeColor: "#0b0b0b",
   openGraph: {
-    title: "Duban Ronald — Growth systems for digital acquisition",
+    title: "Duban Ronald | Growth systems for digital acquisition",
     description:
       "Digital acquisition, paid media, and performance infrastructure for teams that treat marketing as a system, not a campaign.",
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Duban Ronald — growth systems for digital acquisition",
+    title: "Duban Ronald | growth systems for digital acquisition",
     description:
       "Digital acquisition, paid media, and performance infrastructure for teams that treat marketing as a system, not a campaign.",
   },
@@ -37,9 +38,31 @@ const inter = Inter({
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   const gaId = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID
 
+  const orgJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    name: "Duban Ronald",
+    url: "https://dubanronald.com",
+    email: "hello@dubanronald.com",
+    areaServed: "Worldwide",
+    contactPoint: [
+      {
+        "@type": "ContactPoint",
+        contactType: "business inquiries",
+        email: "hello@dubanronald.com",
+      },
+    ],
+  }
+
   return (
     <html lang="en">
       <body className={inter.className}>
+        <script
+          type="application/ld+json"
+          // eslint-disable-next-line react/no-danger
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(orgJsonLd) }}
+        />
+
         {gaId ? (
           <>
             <Script
