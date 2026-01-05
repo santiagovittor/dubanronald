@@ -3,9 +3,26 @@ import Nav from "@/components/Nav"
 import Hero from "@/components/Hero"
 
 export const metadata: Metadata = {
-  title: "Duban Ronald — agencia de marketing digital y growth",
+  title: "Duban Ronald | agencia de marketing digital y growth",
   description:
     "Sistemas de growth, paid media y analytics para equipos que tratan al marketing como un sistema continuo, no como campañas aisladas.",
+  alternates: {
+    canonical: "/es",
+  },
+  openGraph: {
+    title: "Duban Ronald — agencia de marketing digital y growth",
+    description:
+      "Sistemas de growth, paid media y analytics para equipos que tratan al marketing como un sistema continuo, no como campañas aisladas.",
+    type: "website",
+    url: "/es",
+    siteName: "Duban Ronald",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Duban Ronald — agencia de marketing digital y growth",
+    description:
+      "Sistemas de growth, paid media y analytics para equipos que tratan al marketing como un sistema continuo, no como campañas aisladas.",
+  },
 }
 
 const WHATSAPP_NUMBER = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER

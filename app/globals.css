@@ -9,22 +9,44 @@
 html {
   background-color: var(--bg);
   color: var(--fg);
+  overflow-x: hidden;
 }
 
 body {
+  overflow-x: hidden;
   font-feature-settings: "liga" 1, "kern" 1;
   -webkit-font-smoothing: antialiased;
 }
 
-/* Clip paint to prevent horizontal scrollbar without breaking sticky */
-.hero-clip {
-  contain: paint;
-  overflow-x: clip;
-  overflow-y: visible;
+/* Dot bounce (only when hero is fully static at top) */
+@keyframes drBounceDot {
+  0%,
+  20%,
+  100% {
+    transform: translateY(0);
+  }
+  45% {
+    transform: translateY(-0.22em);
+  }
+  62% {
+    transform: translateY(0);
+  }
+  78% {
+    transform: translateY(-0.1em);
+  }
+  90% {
+    transform: translateY(0);
+  }
 }
 
-@supports not (overflow: clip) {
-  .hero-clip {
-    overflow-x: hidden;
+.dr-dot-bounce {
+  display: inline-block;
+  animation: drBounceDot 1.05s cubic-bezier(0.2, 0.8, 0.2, 1) infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .dr-dot-bounce {
+    animation: none;
+    transform: none;
   }
 }
