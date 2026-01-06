@@ -1,6 +1,7 @@
 import type { Metadata } from "next"
 import Nav from "@/components/Nav"
 import ContactLinks from "@/components/ContactLinks"
+import Footer from "@/components/Footer"
 
 export const metadata: Metadata = {
   title: "Duban Ronald | Analytics y tracking",
@@ -140,6 +141,8 @@ export default function AnalyticsTrackingPageEs() {
           <ContactLinks locale="es" />
         </section>
       </main>
+
+      <Footer locale="es" />
     </>
   )
 }

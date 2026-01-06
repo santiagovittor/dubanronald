@@ -18,7 +18,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Duban Ronald | growth systems for digital acquisition",
+    title: "Duban Ronald | Growth systems for digital acquisition",
     description:
       "Digital acquisition, paid media, and performance infrastructure for teams that treat marketing as a system, not a campaign.",
   },

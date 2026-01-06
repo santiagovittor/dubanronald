@@ -27,15 +27,15 @@ export default function Nav({ locale = "en" }: NavProps) {
             <a
               href="/"
               aria-current={isEn ? "page" : undefined}
-              className={`${linkBase} ${isEn ? linkActive : linkInactive}`}
+              className={`${linkBase} ${isEn ? linkActive : linkInactive} px-1 py-2`}
             >
               EN
             </a>
-            <span className="text-neutral-600">/</span>
+            <span className="text-neutral-400">/</span>
             <a
               href="/es"
               aria-current={!isEn ? "page" : undefined}
-              className={`${linkBase} ${!isEn ? linkActive : linkInactive}`}
+              className={`${linkBase} ${!isEn ? linkActive : linkInactive} px-1 py-2`}
             >
               ES
             </a>
@@ -43,7 +43,7 @@ export default function Nav({ locale = "en" }: NavProps) {
 
           <a
             href="#contact"
-            className="text-sm text-[var(--muted)] underline-offset-4 transition hover:text-[var(--fg)] hover:underline"
+            className="text-sm text-[var(--muted)] underline-offset-4 transition hover:text-[var(--fg)] hover:underline px-1 py-2"
           >
             {contactLabel}
           </a>

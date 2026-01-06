@@ -2,6 +2,7 @@ import type { Metadata } from "next"
 import Nav from "@/components/Nav"
 import Hero from "@/components/Hero"
 import ContactLinks from "@/components/ContactLinks"
+import Footer from "@/components/Footer"
 
 export const metadata: Metadata = {
   title: "Duban Ronald | Agencia de marketing digital y growth",
@@ -68,26 +69,32 @@ export default function HomeEs() {
             </div>
           </div>
 
-          <div className="space-y-3 text-sm pt-2">
-            <div className="flex gap-6">
-              <span className="w-28 shrink-0 font-medium text-neutral-200">Real estate</span>
-              <a
-                href="/es/real-estate"
-                className="text-[var(--muted)] leading-relaxed underline-offset-4 transition hover:text-[var(--fg)] hover:underline"
-              >
+          <div className="space-y-3 border-t border-neutral-800 pt-6 text-sm">
+            <a
+              href="/es/real-estate"
+              aria-label="Sistemas de adquisición para real estate"
+              className="group flex gap-6 underline-offset-4 transition hover:underline"
+            >
+              <span className="w-28 shrink-0 font-medium text-neutral-400 transition group-hover:text-[var(--fg)]">
+                Real estate
+              </span>
+              <span className="text-neutral-300 leading-relaxed transition group-hover:text-[var(--fg)]">
                 Sistemas de adquisición para ciclos de venta de alta consideración.
-              </a>
-            </div>
+              </span>
+            </a>
 
-            <div className="flex gap-6">
-              <span className="w-28 shrink-0 font-medium text-neutral-200">Analytics</span>
-              <a
-                href="/es/analytics-tracking"
-                className="text-[var(--muted)] leading-relaxed underline-offset-4 transition hover:text-[var(--fg)] hover:underline"
-              >
+            <a
+              href="/es/analytics-tracking"
+              aria-label="Analytics y tracking"
+              className="group flex gap-6 underline-offset-4 transition hover:underline"
+            >
+              <span className="w-28 shrink-0 font-medium text-neutral-400 transition group-hover:text-[var(--fg)]">
+                Analytics
+              </span>
+              <span className="text-neutral-300 leading-relaxed transition group-hover:text-[var(--fg)]">
                 Sistemas de medición para tomar decisiones.
-              </a>
-            </div>
+              </span>
+            </a>
           </div>
         </section>
 
@@ -102,29 +109,31 @@ export default function HomeEs() {
           <div className="space-y-3 text-sm">
             <p className="text-neutral-300">Información útil para incluir:</p>
 
-            <div className="space-y-2 text-[var(--muted)]">
-              <div className="flex gap-3">
-                <span className="w-6 shrink-0 text-neutral-500">01</span>
+            <ol className="space-y-2 text-[var(--muted)] list-none">
+              <li className="flex gap-3">
+                <span className="w-6 shrink-0 text-neutral-400">01</span>
                 <span>Qué vendés y a quién</span>
-              </div>
-              <div className="flex gap-3">
-                <span className="w-6 shrink-0 text-neutral-500">02</span>
+              </li>
+              <li className="flex gap-3">
+                <span className="w-6 shrink-0 text-neutral-400">02</span>
                 <span>Canales de adquisición actuales</span>
-              </div>
-              <div className="flex gap-3">
-                <span className="w-6 shrink-0 text-neutral-500">03</span>
+              </li>
+              <li className="flex gap-3">
+                <span className="w-6 shrink-0 text-neutral-400">03</span>
                 <span>Presupuesto mensual aproximado</span>
-              </div>
-              <div className="flex gap-3">
-                <span className="w-6 shrink-0 text-neutral-500">04</span>
+              </li>
+              <li className="flex gap-3">
+                <span className="w-6 shrink-0 text-neutral-400">04</span>
                 <span>Plazos o restricciones relevantes</span>
-              </div>
-            </div>
+              </li>
+            </ol>
           </div>
 
           <ContactLinks locale="es" />
         </section>
       </main>
+
+      <Footer locale="es" />
     </>
   )
 }

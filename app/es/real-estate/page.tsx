@@ -2,19 +2,20 @@ import type { Metadata } from "next"
 import Nav from "@/components/Nav"
 import Hero from "@/components/Hero"
 import ContactLinks from "@/components/ContactLinks"
+import Footer from "@/components/Footer"
 
 export const metadata: Metadata = {
   title: "Duban Ronald | Agencia de marketing digital y growth",
   description:
     "Sistemas de growth, paid media y analytics para equipos que tratan al marketing como un sistema continuo, no como campañas aisladas.",
   openGraph: {
-    title: "Duban Ronald — Sistemas de growth para adquisición digital",
+    title: "Duban Ronald | Sistemas de growth para adquisición digital",
     description:
       "Adquisición digital, paid media e infraestructura de performance para equipos que tratan al marketing como un sistema, no como campañas aisladas.",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Duban Ronald — Sistemas de growth para adquisición digital",
+    title: "Duban Ronald | Sistemas de growth para adquisición digital",
     description:
       "Adquisición digital, paid media e infraestructura de performance para equipos que tratan al marketing como un sistema, no como campañas aisladas.",
   },
@@ -68,16 +69,33 @@ export default function HomeEs() {
             </div>
           </div>
 
-          <p className="text-sm text-[var(--muted)] leading-relaxed">
-            Real estate:{" "}
+          <div className="space-y-3 border-t border-neutral-800 pt-6 text-sm">
             <a
               href="/es/real-estate"
-              className="text-neutral-200 underline underline-offset-4 transition hover:text-[var(--fg)]"
+              aria-label="Sistemas de adquisición para real estate"
+              className="group flex gap-6 underline-offset-4 transition hover:underline"
             >
-              sistemas de adquisición para ciclos de venta de alta consideración
+              <span className="w-28 shrink-0 font-medium text-neutral-400 transition group-hover:text-[var(--fg)]">
+                Real estate
+              </span>
+              <span className="text-neutral-300 leading-relaxed transition group-hover:text-[var(--fg)]">
+                Sistemas de adquisición para ciclos de venta de alta consideración.
+              </span>
             </a>
-            .
-          </p>
+
+            <a
+              href="/es/analytics-tracking"
+              aria-label="Analytics y tracking"
+              className="group flex gap-6 underline-offset-4 transition hover:underline"
+            >
+              <span className="w-28 shrink-0 font-medium text-neutral-400 transition group-hover:text-[var(--fg)]">
+                Analytics
+              </span>
+              <span className="text-neutral-300 leading-relaxed transition group-hover:text-[var(--fg)]">
+                Sistemas de medición para tomar decisiones.
+              </span>
+            </a>
+          </div>
         </section>
 
         <section id="contact" className="max-w-2xl space-y-6 scroll-mt-24">
@@ -114,6 +132,8 @@ export default function HomeEs() {
           <ContactLinks locale="es" />
         </section>
       </main>
+
+      <Footer locale="es" />
     </>
   )
 }

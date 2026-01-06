@@ -1,16 +1,31 @@
 import type { Metadata } from "next"
 import Nav from "@/components/Nav"
 import ContactLinks from "@/components/ContactLinks"
+import Footer from "@/components/Footer"
 
 export const metadata: Metadata = {
   title: "Duban Ronald | Analytics and tracking",
   description:
     "GA4 events, conversion tracking, and reporting systems built for decisions, not screenshots.",
   alternates: {
+    canonical: "https://dubanronald.com/analytics-tracking",
     languages: {
       en: "https://dubanronald.com/analytics-tracking",
       es: "https://dubanronald.com/es/analytics-tracking",
     },
+  },
+  openGraph: {
+    title: "Duban Ronald | Analytics and tracking",
+    description:
+      "GA4 events, conversion tracking, and reporting systems built for decisions, not screenshots.",
+    type: "website",
+    url: "https://dubanronald.com/analytics-tracking",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Duban Ronald | Analytics and tracking",
+    description:
+      "GA4 events, conversion tracking, and reporting systems built for decisions, not screenshots.",
   },
 }
 
@@ -74,28 +89,28 @@ export default function AnalyticsTrackingPage() {
             The scope depends on your stack, but the baseline is consistent.
           </p>
 
-          <div className="space-y-2 text-sm text-[var(--muted)]">
-            <div className="flex gap-3">
-              <span className="w-6 shrink-0 text-neutral-500">01</span>
+          <ol className="space-y-2 text-sm text-[var(--muted)] list-none">
+            <li className="flex gap-3">
+              <span className="w-6 shrink-0 text-neutral-400">01</span>
               <span>Event map aligned with the funnel and sales process</span>
-            </div>
-            <div className="flex gap-3">
-              <span className="w-6 shrink-0 text-neutral-500">02</span>
+            </li>
+            <li className="flex gap-3">
+              <span className="w-6 shrink-0 text-neutral-400">02</span>
               <span>GA4 configuration with clean conversions and deduplication</span>
-            </div>
-            <div className="flex gap-3">
-              <span className="w-6 shrink-0 text-neutral-500">03</span>
+            </li>
+            <li className="flex gap-3">
+              <span className="w-6 shrink-0 text-neutral-400">03</span>
               <span>UTM standard and channel grouping rules</span>
-            </div>
-            <div className="flex gap-3">
-              <span className="w-6 shrink-0 text-neutral-500">04</span>
+            </li>
+            <li className="flex gap-3">
+              <span className="w-6 shrink-0 text-neutral-400">04</span>
               <span>Reporting template with stable definitions and notes</span>
-            </div>
-            <div className="flex gap-3">
-              <span className="w-6 shrink-0 text-neutral-500">05</span>
+            </li>
+            <li className="flex gap-3">
+              <span className="w-6 shrink-0 text-neutral-400">05</span>
               <span>Ongoing QA to keep tracking consistent as campaigns evolve</span>
-            </div>
-          </div>
+            </li>
+          </ol>
         </section>
 
         <section className="max-w-2xl space-y-6">
@@ -117,29 +132,31 @@ export default function AnalyticsTrackingPage() {
           <div className="space-y-3 text-sm">
             <p className="text-neutral-300">Useful details to include:</p>
 
-            <div className="space-y-2 text-[var(--muted)]">
-              <div className="flex gap-3">
-                <span className="w-6 shrink-0 text-neutral-500">01</span>
+            <ol className="space-y-2 text-[var(--muted)] list-none">
+              <li className="flex gap-3">
+                <span className="w-6 shrink-0 text-neutral-400">01</span>
                 <span>Website platform and forms</span>
-              </div>
-              <div className="flex gap-3">
-                <span className="w-6 shrink-0 text-neutral-500">02</span>
+              </li>
+              <li className="flex gap-3">
+                <span className="w-6 shrink-0 text-neutral-400">02</span>
                 <span>CRM and what counts as a qualified lead</span>
-              </div>
-              <div className="flex gap-3">
-                <span className="w-6 shrink-0 text-neutral-500">03</span>
+              </li>
+              <li className="flex gap-3">
+                <span className="w-6 shrink-0 text-neutral-400">03</span>
                 <span>Acquisition channels and monthly spend range</span>
-              </div>
-              <div className="flex gap-3">
-                <span className="w-6 shrink-0 text-neutral-500">04</span>
+              </li>
+              <li className="flex gap-3">
+                <span className="w-6 shrink-0 text-neutral-400">04</span>
                 <span>What is currently unreliable or missing</span>
-              </div>
-            </div>
+              </li>
+            </ol>
           </div>
 
           <ContactLinks locale="en" />
         </section>
       </main>
+
+      <Footer locale="en" />
     </>
   )
 }
