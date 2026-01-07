@@ -7,16 +7,15 @@ type NavProps = {
 export default function Nav({ locale = "en", enHref = "/", esHref = "/es" }: NavProps) {
   const isEn = locale === "en"
   const contactLabel = locale === "es" ? "Contacto" : "Contact"
-
-  // Brand always goes to the home for the current locale (per your spec).
   const homeHref = isEn ? "/" : "/es"
 
   const linkBase = "transition hover:text-[var(--fg)]"
-  const linkActive = "text-[var(--fg)]"
+  const linkActive =
+    "text-[var(--fg)] underline decoration-[var(--accent)] decoration-[1px] underline-offset-4"
   const linkInactive = "text-neutral-400"
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-20 bg-[var(--bg)]">
+    <nav className="fixed top-0 left-0 right-0 z-20 bg-[var(--bg)] border-b border-[var(--rule)]">
       <div className="mx-auto flex h-16 max-w-5xl items-center justify-between px-6">
         <a
           href={homeHref}
@@ -35,7 +34,7 @@ export default function Nav({ locale = "en", enHref = "/", esHref = "/es" }: Nav
             >
               EN
             </a>
-            <span className="text-neutral-400">/</span>
+            <span className="text-neutral-500">/</span>
             <a
               href={esHref}
               aria-current={!isEn ? "page" : undefined}

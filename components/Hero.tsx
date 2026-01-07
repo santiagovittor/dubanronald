@@ -7,7 +7,6 @@ type HeroProps = {
 }
 
 type IdleCallbackHandle = number
-type IdleCallbackDeadline = { didTimeout: boolean; timeRemaining: () => number }
 
 export default function Hero({ locale = "en" }: HeroProps) {
   const sectionRef = useRef<HTMLElement | null>(null)
@@ -177,8 +176,11 @@ export default function Hero({ locale = "en" }: HeroProps) {
     }
 
     startRaf = w.requestAnimationFrame(() => {
-      const ric = (w as unknown as { requestIdleCallback?: (cb: () => void, opts?: { timeout: number }) => number })
-        .requestIdleCallback
+      const ric = (
+        w as unknown as {
+          requestIdleCallback?: (cb: () => void, opts?: { timeout: number }) => number
+        }
+      ).requestIdleCallback
 
       if (typeof ric === "function") {
         idleId = ric(start, { timeout: 1200 })
@@ -195,7 +197,8 @@ export default function Hero({ locale = "en" }: HeroProps) {
 
       if (startRaf !== null) w.cancelAnimationFrame(startRaf)
 
-      const cic = (w as unknown as { cancelIdleCallback?: (id: number) => void }).cancelIdleCallback
+      const cic = (w as unknown as { cancelIdleCallback?: (id: number) => void })
+        .cancelIdleCallback
       if (idleId !== null && typeof cic === "function") cic(idleId)
 
       if (startTimeout !== null) clearTimeout(startTimeout)
@@ -228,7 +231,31 @@ export default function Hero({ locale = "en" }: HeroProps) {
           pointerEvents: "auto",
         }}
       >
-        <div className="mx-auto w-full max-w-5xl px-6">
+        {/* Decorative hero layer (behind content) */}
+        <div className="pointer-events-none absolute inset-0 z-0">
+          <div
+            className="absolute inset-0"
+            style={{
+              backgroundImage:
+                "radial-gradient(900px 520px at 22% 40%, rgba(255,255,255,0.07), transparent 62%), radial-gradient(820px 520px at 82% 20%, rgba(158,147,255,0.06), transparent 60%)",
+              opacity: 0.9,
+            }}
+          />
+          <div
+            className="absolute inset-0"
+            style={{
+              backgroundImage:
+                "radial-gradient(circle at 1px 1px, rgba(255,255,255,0.18) 1px, transparent 0)",
+              backgroundSize: "26px 26px",
+              opacity: 0.16,
+              maskImage: "radial-gradient(80% 65% at 30% 45%, black 0%, transparent 70%)",
+              WebkitMaskImage:
+                "radial-gradient(80% 65% at 30% 45%, black 0%, transparent 70%)",
+            }}
+          />
+        </div>
+
+        <div className="mx-auto w-full max-w-5xl px-6 relative z-10">
           <div className="max-w-3xl space-y-5">
             <h1
               ref={headlineRef}
