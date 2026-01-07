@@ -1,132 +1,161 @@
 import type { Metadata } from "next"
 import Nav from "@/components/Nav"
-import Hero from "@/components/Hero"
 import ContactLinks from "@/components/ContactLinks"
 import Footer from "@/components/Footer"
 
 export const metadata: Metadata = {
-  title: "Duban Ronald | Agencia de marketing digital y growth",
+  title: "Duban Ronald | Sistemas de adquisición para real estate",
   description:
-    "Sistemas de growth, paid media y analytics para equipos que tratan al marketing como un sistema continuo, no como campañas aisladas.",
+    "Paid media, landings y medición para equipos de real estate con ciclos de venta de alta consideración.",
+  alternates: {
+    canonical: "https://dubanronald.com/es/real-estate",
+    languages: {
+      en: "https://dubanronald.com/real-estate",
+      es: "https://dubanronald.com/es/real-estate",
+    },
+  },
   openGraph: {
-    title: "Duban Ronald | Sistemas de growth para adquisición digital",
+    title: "Duban Ronald | Sistemas de adquisición para real estate",
     description:
-      "Adquisición digital, paid media e infraestructura de performance para equipos que tratan al marketing como un sistema, no como campañas aisladas.",
+      "Paid media, landings y medición para equipos de real estate con ciclos de venta de alta consideración.",
+    type: "website",
+    url: "https://dubanronald.com/es/real-estate",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Duban Ronald | Sistemas de growth para adquisición digital",
+    title: "Duban Ronald | Sistemas de adquisición para real estate",
     description:
-      "Adquisición digital, paid media e infraestructura de performance para equipos que tratan al marketing como un sistema, no como campañas aisladas.",
+      "Paid media, landings y medición para equipos de real estate con ciclos de venta de alta consideración.",
   },
 }
 
-export default function HomeEs() {
+export default function RealEstatePage() {
   return (
     <>
-      <Nav locale="es" />
+      <Nav locale="es" enHref="/real-estate" esHref="/es/real-estate" />
 
       <main className="mx-auto max-w-5xl px-6 pt-16 pb-24 md:pb-32 space-y-24 md:space-y-32">
-        <Hero locale="es" />
-
         <section className="max-w-2xl space-y-6">
-          <h2 className="text-xl font-medium">Cómo trabajamos</h2>
+          <h1 className="text-[clamp(2.5rem,6vw,3.5rem)] font-semibold tracking-tight leading-[1.05]">
+            Sistemas de adquisición para real estate.
+          </h1>
 
           <p className="text-[var(--muted)] leading-relaxed">
-            Diseñamos y operamos sistemas de marketing enfocados en adquisición,
-            visibilidad y conversión, pensados para rendir de forma consistente en el tiempo.
+            Armamos paid media, landings y medición para ciclos de venta largos. Buscamos
+            demanda calificada y atribución limpia, no volumen de leads.
           </p>
+        </section>
+
+        <section className="max-w-2xl space-y-6">
+          <h2 className="text-xl font-medium">Qué optimizamos</h2>
 
           <div className="space-y-3 text-sm">
             <div className="flex gap-6">
-              <span className="w-28 shrink-0 font-medium text-neutral-200">
-                Adquisición
+              <span className="w-32 shrink-0 font-medium text-neutral-200">
+                Calidad del lead
               </span>
               <span className="text-[var(--muted)] leading-relaxed">
-                Búsqueda y redes de pago, entornos de destino y ciclos de testeo
-                diseñados para generar efecto compuesto.
+                Formularios y flujos para filtrar intención. La calificación es parte del
+                embudo.
               </span>
             </div>
 
             <div className="flex gap-6">
-              <span className="w-28 shrink-0 font-medium text-neutral-200">
-                Posicionamiento
+              <span className="w-32 shrink-0 font-medium text-neutral-200">
+                Tiempo de respuesta
               </span>
               <span className="text-[var(--muted)] leading-relaxed">
-                Intención de búsqueda, mensajes y estructura de oferta alineados
-                con cómo los compradores realmente evalúan alternativas.
+                Pasos siguientes claros y derivación limpia a ventas. El tiempo de
+                respuesta y el seguimiento pesan más que microajustes creativos.
               </span>
             </div>
 
             <div className="flex gap-6">
-              <span className="w-28 shrink-0 font-medium text-neutral-200">
-                Infraestructura
+              <span className="w-32 shrink-0 font-medium text-neutral-200">
+                Atribución
               </span>
               <span className="text-[var(--muted)] leading-relaxed">
-                Analytics, tracking y procesos operativos que tratan al marketing
-                como un sistema continuo, no como una campaña aislada.
+                Tracking y definiciones consistentes para decidir con números estables, no
+                con capturas de plataforma.
               </span>
             </div>
           </div>
+        </section>
 
-          <div className="space-y-3 border-t border-neutral-800 pt-6 text-sm">
-            <a
-              href="/es/real-estate"
-              aria-label="Sistemas de adquisición para real estate"
-              className="group flex gap-6 underline-offset-4 transition hover:underline"
-            >
-              <span className="w-28 shrink-0 font-medium text-neutral-400 transition group-hover:text-[var(--fg)]">
-                Real estate
-              </span>
-              <span className="text-neutral-300 leading-relaxed transition group-hover:text-[var(--fg)]">
-                Sistemas de adquisición para ciclos de venta de alta consideración.
-              </span>
-            </a>
+        <section className="max-w-2xl space-y-6">
+          <h2 className="text-xl font-medium">Qué construimos</h2>
 
-            <a
-              href="/es/analytics-tracking"
-              aria-label="Analytics y tracking"
-              className="group flex gap-6 underline-offset-4 transition hover:underline"
-            >
-              <span className="w-28 shrink-0 font-medium text-neutral-400 transition group-hover:text-[var(--fg)]">
-                Analytics
-              </span>
-              <span className="text-neutral-300 leading-relaxed transition group-hover:text-[var(--fg)]">
-                Sistemas de medición para tomar decisiones.
-              </span>
-            </a>
-          </div>
+          <p className="text-[var(--muted)] leading-relaxed">
+            El alcance depende del activo y del modelo de negocio. Entregables típicos:
+          </p>
+
+          <ol className="space-y-2 text-sm text-[var(--muted)] list-none">
+            <li className="flex gap-3">
+              <span className="w-6 shrink-0 text-neutral-400">01</span>
+              <span>Estructura de cuenta y plan de testeo en Search y Paid Social</span>
+            </li>
+            <li className="flex gap-3">
+              <span className="w-6 shrink-0 text-neutral-400">02</span>
+              <span>Landings y framing de oferta alineados con intención</span>
+            </li>
+            <li className="flex gap-3">
+              <span className="w-6 shrink-0 text-neutral-400">03</span>
+              <span>Eventos y conversiones en GA4, más estándar de UTM</span>
+            </li>
+            <li className="flex gap-3">
+              <span className="w-6 shrink-0 text-neutral-400">04</span>
+              <span>Loops de calidad con ventas y chequeos en CRM</span>
+            </li>
+            <li className="flex gap-3">
+              <span className="w-6 shrink-0 text-neutral-400">05</span>
+              <span>Reporting con qué cambió, por qué y qué sigue</span>
+            </li>
+          </ol>
+        </section>
+
+        <section className="max-w-2xl space-y-6">
+          <h2 className="text-xl font-medium">Encaje</h2>
+
+          <p className="text-[var(--muted)] leading-relaxed">
+            Funciona mejor con equipos que gestionan leads con disciplina y quieren un
+            sistema de adquisición medible y repetible. Si necesitás volumen a cualquier
+            costo, no hay encaje.
+          </p>
+
+          <p className="text-[var(--muted)] leading-relaxed">
+            No hacemos gestión de redes sociales.
+          </p>
         </section>
 
         <section id="contact" className="max-w-2xl space-y-6 scroll-mt-24">
           <h2 className="text-xl font-medium">Contacto</h2>
 
           <p className="text-[var(--muted)] leading-relaxed">
-            Si ves posible encaje, contanos brevemente de tu negocio y objetivos.
-            Revisamos cada mensaje y respondemos de forma selectiva.
+            Si ves posible encaje, mandanos un mensaje breve. Revisamos consultas y
+            respondemos de forma selectiva.
           </p>
 
           <div className="space-y-3 text-sm">
             <p className="text-neutral-300">Información útil para incluir:</p>
 
-            <div className="space-y-2 text-[var(--muted)]">
-              <div className="flex gap-3">
-                <span className="w-6 shrink-0 text-neutral-500">01</span>
-                <span>Qué vendés y a quién</span>
-              </div>
-              <div className="flex gap-3">
-                <span className="w-6 shrink-0 text-neutral-500">02</span>
-                <span>Canales de adquisición actuales</span>
-              </div>
-              <div className="flex gap-3">
-                <span className="w-6 shrink-0 text-neutral-500">03</span>
-                <span>Presupuesto mensual aproximado</span>
-              </div>
-              <div className="flex gap-3">
-                <span className="w-6 shrink-0 text-neutral-500">04</span>
-                <span>Plazos o restricciones relevantes</span>
-              </div>
-            </div>
+            <ol className="space-y-2 text-[var(--muted)] list-none">
+              <li className="flex gap-3">
+                <span className="w-6 shrink-0 text-neutral-400">01</span>
+                <span>Mercado, tipo de activo y rango de precios</span>
+              </li>
+              <li className="flex gap-3">
+                <span className="w-6 shrink-0 text-neutral-400">02</span>
+                <span>Canales actuales y cómo gestionan los leads</span>
+              </li>
+              <li className="flex gap-3">
+                <span className="w-6 shrink-0 text-neutral-400">03</span>
+                <span>Rango de inversión mensual y restricciones</span>
+              </li>
+              <li className="flex gap-3">
+                <span className="w-6 shrink-0 text-neutral-400">04</span>
+                <span>Plazos y qué sería un buen resultado</span>
+              </li>
+            </ol>
           </div>
 
           <ContactLinks locale="es" />

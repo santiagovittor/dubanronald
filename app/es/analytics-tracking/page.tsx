@@ -8,19 +8,36 @@ export const metadata: Metadata = {
   description:
     "Eventos en GA4, tracking de conversiones y sistemas de reporting pensados para decidir, no para capturas.",
   alternates: {
+    canonical: "https://dubanronald.com/es/analytics-tracking",
     languages: {
       en: "https://dubanronald.com/analytics-tracking",
       es: "https://dubanronald.com/es/analytics-tracking",
     },
+  },
+  openGraph: {
+    title: "Duban Ronald | Analytics y tracking",
+    description:
+      "Eventos en GA4, tracking de conversiones y sistemas de reporting pensados para decidir, no para capturas.",
+    type: "website",
+    url: "https://dubanronald.com/es/analytics-tracking",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Duban Ronald | Analytics y tracking",
+    description:
+      "Eventos en GA4, tracking de conversiones y sistemas de reporting pensados para decidir, no para capturas.",
   },
 }
 
 export default function AnalyticsTrackingPageEs() {
   return (
     <>
-      <Nav locale="es" />
+      <Nav locale="es" enHref="/analytics-tracking" esHref="/es/analytics-tracking" />
 
-      <main className="mx-auto max-w-5xl px-6 pt-16 pb-24 md:pb-32 space-y-24 md:space-y-32">
+      <main
+        lang="es"
+        className="mx-auto max-w-5xl px-6 pt-16 pb-24 md:pb-32 space-y-24 md:space-y-32"
+      >
         <section className="max-w-2xl space-y-6">
           <h1 className="text-[clamp(2.5rem,6vw,3.5rem)] font-semibold tracking-tight leading-[1.05]">
             Analytics y tracking.
@@ -77,23 +94,23 @@ export default function AnalyticsTrackingPageEs() {
 
           <div className="space-y-2 text-sm text-[var(--muted)]">
             <div className="flex gap-3">
-              <span className="w-6 shrink-0 text-neutral-500">01</span>
+              <span className="w-6 shrink-0 text-neutral-400">01</span>
               <span>Mapa de eventos alineado al embudo y proceso comercial</span>
             </div>
             <div className="flex gap-3">
-              <span className="w-6 shrink-0 text-neutral-500">02</span>
+              <span className="w-6 shrink-0 text-neutral-400">02</span>
               <span>Configuración de GA4 con conversiones limpias y deduplicación</span>
             </div>
             <div className="flex gap-3">
-              <span className="w-6 shrink-0 text-neutral-500">03</span>
+              <span className="w-6 shrink-0 text-neutral-400">03</span>
               <span>Estándar de UTM y reglas de agrupación de canales</span>
             </div>
             <div className="flex gap-3">
-              <span className="w-6 shrink-0 text-neutral-500">04</span>
+              <span className="w-6 shrink-0 text-neutral-400">04</span>
               <span>Template de reporting con definiciones estables y notas</span>
             </div>
             <div className="flex gap-3">
-              <span className="w-6 shrink-0 text-neutral-500">05</span>
+              <span className="w-6 shrink-0 text-neutral-400">05</span>
               <span>QA continuo para mantener el tracking consistente</span>
             </div>
           </div>
@@ -120,19 +137,19 @@ export default function AnalyticsTrackingPageEs() {
 
             <div className="space-y-2 text-[var(--muted)]">
               <div className="flex gap-3">
-                <span className="w-6 shrink-0 text-neutral-500">01</span>
+                <span className="w-6 shrink-0 text-neutral-400">01</span>
                 <span>Plataforma del sitio y formularios</span>
               </div>
               <div className="flex gap-3">
-                <span className="w-6 shrink-0 text-neutral-500">02</span>
+                <span className="w-6 shrink-0 text-neutral-400">02</span>
                 <span>CRM y qué cuenta como lead calificado</span>
               </div>
               <div className="flex gap-3">
-                <span className="w-6 shrink-0 text-neutral-500">03</span>
+                <span className="w-6 shrink-0 text-neutral-400">03</span>
                 <span>Canales actuales y rango de inversión mensual</span>
               </div>
               <div className="flex gap-3">
-                <span className="w-6 shrink-0 text-neutral-500">04</span>
+                <span className="w-6 shrink-0 text-neutral-400">04</span>
                 <span>Qué está fallando o falta hoy</span>
               </div>
             </div>

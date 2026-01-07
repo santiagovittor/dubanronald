@@ -7,17 +7,17 @@ import Footer from "@/components/Footer"
 export const metadata: Metadata = {
   title: "Duban Ronald | Agencia de marketing digital y growth",
   description:
-    "Sistemas de growth, paid media y analytics para equipos que tratan al marketing como un sistema continuo, no como campañas aisladas.",
+    "Sistemas de growth, paid media y analytics para equipos que trabajan el marketing como un sistema continuo, no como campañas sueltas.",
   openGraph: {
     title: "Duban Ronald | Sistemas de growth para adquisición digital",
     description:
-      "Adquisición digital, paid media e infraestructura de performance para equipos que tratan al marketing como un sistema, no como campañas aisladas.",
+      "Adquisición digital, paid media e infraestructura de performance para equipos que operan el marketing como un sistema continuo, no como campañas sueltas.",
   },
   twitter: {
     card: "summary_large_image",
     title: "Duban Ronald | Sistemas de growth para adquisición digital",
     description:
-      "Adquisición digital, paid media e infraestructura de performance para equipos que tratan al marketing como un sistema, no como campañas aisladas.",
+      "Adquisición digital, paid media e infraestructura de performance para equipos que operan el marketing como un sistema continuo, no como campañas sueltas.",
   },
 }
 
@@ -33,8 +33,8 @@ export default function HomeEs() {
           <h2 className="text-xl font-medium">Cómo trabajamos</h2>
 
           <p className="text-[var(--muted)] leading-relaxed">
-            Diseñamos y operamos sistemas de marketing enfocados en adquisición,
-            visibilidad y conversión, pensados para rendir de forma consistente en el tiempo.
+            Diseñamos y operamos sistemas orientados a adquisición, visibilidad y
+            conversión. Performance sostenida, no campañas sueltas.
           </p>
 
           <div className="space-y-3 text-sm">
@@ -43,8 +43,8 @@ export default function HomeEs() {
                 Adquisición
               </span>
               <span className="text-[var(--muted)] leading-relaxed">
-                Búsqueda y redes de pago, entornos de destino y ciclos de testeo
-                diseñados para generar efecto compuesto.
+                Search y paid social, landings y ciclos de testing pensados para
+                construir efecto compuesto.
               </span>
             </div>
 
@@ -53,8 +53,8 @@ export default function HomeEs() {
                 Posicionamiento
               </span>
               <span className="text-[var(--muted)] leading-relaxed">
-                Intención de búsqueda, mensajes y estructura de oferta alineados
-                con cómo los compradores realmente evalúan alternativas.
+                Intención de búsqueda, mensaje y framing de oferta alineados con cómo
+                los compradores evalúan alternativas.
               </span>
             </div>
 
@@ -63,8 +63,8 @@ export default function HomeEs() {
                 Infraestructura
               </span>
               <span className="text-[var(--muted)] leading-relaxed">
-                Analytics, tracking y procesos operativos que tratan al marketing
-                como un sistema continuo, no como una campaña aislada.
+                Analytics, tracking y procesos para sostener estándares y tomar decisiones
+                con números estables.
               </span>
             </div>
           </div>
@@ -79,7 +79,7 @@ export default function HomeEs() {
                 Real estate
               </span>
               <span className="text-neutral-300 leading-relaxed transition group-hover:text-[var(--fg)]">
-                Sistemas de adquisición para ciclos de venta de alta consideración.
+                Sistemas de adquisición para ciclos de venta largos y de alta consideración.
               </span>
             </a>
 
@@ -92,7 +92,7 @@ export default function HomeEs() {
                 Analytics
               </span>
               <span className="text-neutral-300 leading-relaxed transition group-hover:text-[var(--fg)]">
-                Sistemas de medición para tomar decisiones.
+                Medición y tracking para decidir con atribución clara.
               </span>
             </a>
           </div>
@@ -102,8 +102,8 @@ export default function HomeEs() {
           <h2 className="text-xl font-medium">Contacto</h2>
 
           <p className="text-[var(--muted)] leading-relaxed">
-            Si ves posible encaje, contanos brevemente de tu negocio y objetivos.
-            Revisamos cada mensaje y respondemos de forma selectiva.
+            Si ves posible encaje, mandanos un mensaje breve con tu negocio y objetivos.
+            Revisamos cada consulta y respondemos de forma selectiva.
           </p>
 
           <div className="space-y-3 text-sm">
@@ -116,15 +116,15 @@ export default function HomeEs() {
               </li>
               <li className="flex gap-3">
                 <span className="w-6 shrink-0 text-neutral-400">02</span>
-                <span>Canales de adquisición actuales</span>
+                <span>Canales actuales y cómo gestionan los leads</span>
               </li>
               <li className="flex gap-3">
                 <span className="w-6 shrink-0 text-neutral-400">03</span>
-                <span>Presupuesto mensual aproximado</span>
+                <span>Rango de inversión mensual y restricciones</span>
               </li>
               <li className="flex gap-3">
                 <span className="w-6 shrink-0 text-neutral-400">04</span>
-                <span>Plazos o restricciones relevantes</span>
+                <span>Plazos y qué sería un buen resultado</span>
               </li>
             </ol>
           </div>

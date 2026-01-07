@@ -32,7 +32,7 @@ export const metadata: Metadata = {
 export default function RealEstatePage() {
   return (
     <>
-      <Nav locale="en" />
+      <Nav locale="en" enHref="/real-estate" esHref="/es/real-estate" />
 
       <main className="mx-auto max-w-5xl px-6 pt-16 pb-24 md:pb-32 space-y-24 md:space-y-32">
         <section className="max-w-2xl space-y-6">

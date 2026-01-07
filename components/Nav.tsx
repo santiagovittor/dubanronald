@@ -1,10 +1,14 @@
 type NavProps = {
   locale?: "en" | "es"
+  enHref?: string
+  esHref?: string
 }
 
-export default function Nav({ locale = "en" }: NavProps) {
+export default function Nav({ locale = "en", enHref = "/", esHref = "/es" }: NavProps) {
   const isEn = locale === "en"
   const contactLabel = locale === "es" ? "Contacto" : "Contact"
+
+  // Brand always goes to the home for the current locale (per your spec).
   const homeHref = isEn ? "/" : "/es"
 
   const linkBase = "transition hover:text-[var(--fg)]"
@@ -25,7 +29,7 @@ export default function Nav({ locale = "en" }: NavProps) {
         <div className="ml-6 flex min-w-0 items-center justify-end gap-4 sm:gap-5 whitespace-nowrap">
           <div className="flex items-center gap-2 text-xs">
             <a
-              href="/"
+              href={enHref}
               aria-current={isEn ? "page" : undefined}
               className={`${linkBase} ${isEn ? linkActive : linkInactive} px-1 py-2`}
             >
@@ -33,7 +37,7 @@ export default function Nav({ locale = "en" }: NavProps) {
             </a>
             <span className="text-neutral-400">/</span>
             <a
-              href="/es"
+              href={esHref}
               aria-current={!isEn ? "page" : undefined}
               className={`${linkBase} ${!isEn ? linkActive : linkInactive} px-1 py-2`}
             >
