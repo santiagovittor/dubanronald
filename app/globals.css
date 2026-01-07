@@ -22,7 +22,7 @@ html {
   isolation: isolate;
 }
 
-/* Background depth: slightly stronger so it actually reads */
+/* Desktop / larger screens: full depth (gradients + grain) */
 html::before {
   content: "";
   position: fixed;
@@ -39,6 +39,21 @@ html::before {
   background-size: auto, auto, 180px 180px;
   background-position: 0 0, 0 0, 0 0;
   background-blend-mode: normal, normal, soft-light;
+}
+
+/* Mobile: keep it simple to help LCP (no SVG noise, single soft gradient) */
+@media (max-width: 767px) {
+  html::before {
+    background-image: radial-gradient(
+      900px 500px at 50% 0%,
+      rgba(255, 255, 255, 0.07),
+      transparent 70%
+    );
+    background-repeat: no-repeat;
+    background-size: auto;
+    background-position: 0 0;
+    background-blend-mode: normal;
+  }
 }
 
 body {

@@ -171,13 +171,13 @@ export default function Hero({ locale = "en" }: HeroProps) {
       started = true
 
       onScrollOrResize()
-      w.addEventListener("scroll", onScrollOrResize, { passive: true })
-      w.addEventListener("resize", onScrollOrResize)
+      window.addEventListener("scroll", onScrollOrResize, { passive: true })
+      window.addEventListener("resize", onScrollOrResize)
     }
 
-    startRaf = w.requestAnimationFrame(() => {
+    startRaf = window.requestAnimationFrame(() => {
       const ric = (
-        w as unknown as {
+        window as unknown as {
           requestIdleCallback?: (cb: () => void, opts?: { timeout: number }) => number
         }
       ).requestIdleCallback
@@ -191,20 +191,20 @@ export default function Hero({ locale = "en" }: HeroProps) {
 
     return () => {
       if (started) {
-        w.removeEventListener("scroll", onScrollOrResize)
-        w.removeEventListener("resize", onScrollOrResize)
+        window.removeEventListener("scroll", onScrollOrResize)
+        window.removeEventListener("resize", onScrollOrResize)
       }
 
-      if (startRaf !== null) w.cancelAnimationFrame(startRaf)
+      if (startRaf !== null) window.cancelAnimationFrame(startRaf)
 
-      const cic = (w as unknown as { cancelIdleCallback?: (id: number) => void })
+      const cic = (window as unknown as { cancelIdleCallback?: (id: number) => void })
         .cancelIdleCallback
       if (idleId !== null && typeof cic === "function") cic(idleId)
 
       if (startTimeout !== null) clearTimeout(startTimeout)
 
-      if (rafScrollRef.current !== null) w.cancelAnimationFrame(rafScrollRef.current)
-      if (rafAnimRef.current !== null) w.cancelAnimationFrame(rafAnimRef.current)
+      if (rafScrollRef.current !== null) window.cancelAnimationFrame(rafScrollRef.current)
+      if (rafAnimRef.current !== null) window.cancelAnimationFrame(rafAnimRef.current)
 
       rafScrollRef.current = null
       rafAnimRef.current = null
@@ -231,8 +231,8 @@ export default function Hero({ locale = "en" }: HeroProps) {
           pointerEvents: "auto",
         }}
       >
-        {/* Decorative hero layer (behind content) */}
-        <div className="pointer-events-none absolute inset-0 z-0">
+        {/* Decorative hero layer – only on md+ to keep mobile light */}
+        <div className="pointer-events-none absolute inset-0 z-0 hidden md:block">
           <div
             className="absolute inset-0"
             style={{
