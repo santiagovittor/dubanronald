@@ -8,10 +8,19 @@ export const metadata: Metadata = {
   title: "Duban Ronald | Agencia de marketing digital y growth",
   description:
     "Sistemas de growth, paid media y analytics para equipos que trabajan el marketing como un sistema continuo, no como campañas sueltas.",
+  alternates: {
+    canonical: "https://dubanronald.com/es",
+    languages: {
+      en: "https://dubanronald.com/",
+      es: "https://dubanronald.com/es",
+    },
+  },
   openGraph: {
     title: "Duban Ronald | Sistemas de growth para adquisición digital",
     description:
       "Adquisición digital, paid media e infraestructura de performance para equipos que operan el marketing como un sistema continuo, no como campañas sueltas.",
+    type: "website",
+    url: "https://dubanronald.com/es",
   },
   twitter: {
     card: "summary_large_image",

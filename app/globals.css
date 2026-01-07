@@ -22,7 +22,9 @@ html {
   isolation: isolate;
 }
 
-/* Desktop / larger screens: full depth (gradients + grain) */
+/* Desktop / larger screens:
+   Warm, film-like background with visible grain and gentle light leaks.
+*/
 html::before {
   content: "";
   position: fixed;
@@ -31,28 +33,49 @@ html::before {
   pointer-events: none;
 
   background-image:
-    radial-gradient(1200px 700px at 18% -15%, rgba(255, 255, 255, 0.085), transparent 62%),
-    radial-gradient(900px 600px at 88% 0%, rgba(158, 147, 255, 0.055), transparent 58%),
-    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.14'/%3E%3C/svg%3E");
+    /* left warm leak */
+    radial-gradient(
+      1300px 900px at -10% 0%,
+      rgba(255, 204, 153, 0.26),
+      transparent 62%
+    ),
+    /* right magenta leak */
+    radial-gradient(
+      1200px 850px at 110% -10%,
+      rgba(255, 140, 200, 0.2),
+      transparent 64%
+    ),
+    /* bottom vignette */
+    radial-gradient(
+      1600px 1100px at 50% 115%,
+      rgba(0, 0, 0, 0.96),
+      transparent 70%
+    ),
+    /* film grain */
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.22'/%3E%3C/svg%3E");
 
-  background-repeat: no-repeat, no-repeat, repeat;
-  background-size: auto, auto, 180px 180px;
-  background-position: 0 0, 0 0, 0 0;
-  background-blend-mode: normal, normal, soft-light;
+  background-repeat: no-repeat, no-repeat, no-repeat, repeat;
+  background-size: auto, auto, auto, 180px 180px;
+  background-position: 0 0, 0 0, 0 0, 0 0;
+  background-blend-mode: soft-light, soft-light, multiply, soft-light;
 }
 
-/* Mobile: keep it simple to help LCP (no SVG noise, single soft gradient) */
+/* Mobile:
+   Simpler but still alive: one warm radial + grain.
+*/
 @media (max-width: 767px) {
   html::before {
-    background-image: radial-gradient(
-      900px 500px at 50% 0%,
-      rgba(255, 255, 255, 0.07),
-      transparent 70%
-    );
-    background-repeat: no-repeat;
-    background-size: auto;
-    background-position: 0 0;
-    background-blend-mode: normal;
+    background-image:
+      radial-gradient(
+        950px 650px at 50% 0%,
+        rgba(255, 204, 153, 0.22),
+        transparent 72%
+      ),
+      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.20'/%3E%3C/svg%3E");
+    background-repeat: no-repeat, repeat;
+    background-size: auto, 180px 180px;
+    background-position: 0 0, 0 0;
+    background-blend-mode: soft-light, soft-light;
   }
 }
 

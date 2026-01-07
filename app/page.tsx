@@ -1,7 +1,34 @@
+import type { Metadata } from "next"
 import Nav from "@/components/Nav"
 import Hero from "@/components/Hero"
 import ContactLinks from "@/components/ContactLinks"
 import Footer from "@/components/Footer"
+
+export const metadata: Metadata = {
+  title: "Duban Ronald | Growth systems for digital acquisition",
+  description:
+    "Digital marketing and growth systems for teams that treat marketing as a continuous system, not isolated campaigns.",
+  alternates: {
+    canonical: "https://dubanronald.com/",
+    languages: {
+      en: "https://dubanronald.com/",
+      es: "https://dubanronald.com/es",
+    },
+  },
+  openGraph: {
+    title: "Duban Ronald | Growth systems for digital acquisition",
+    description:
+      "Digital acquisition, paid media, and performance infrastructure for teams that treat marketing as a system, not a campaign.",
+    type: "website",
+    url: "https://dubanronald.com/",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Duban Ronald | Growth systems for digital acquisition",
+    description:
+      "Digital acquisition, paid media, and performance infrastructure for teams that treat marketing as a system, not a campaign.",
+  },
+}
 
 export default function Home() {
   return (
