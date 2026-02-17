@@ -1,5 +1,7 @@
 "use client"
 
+import { trackMeta } from "@/lib/metaPixel"
+
 declare global {
   interface Window {
     gtag?: (...args: any[]) => void
@@ -25,7 +27,7 @@ export default function ContactLinks({ locale = "en" }: ContactLinksProps) {
   const whatsappLabel = locale === "es" ? "WhatsApp (consultas)" : "WhatsApp (inquiries)"
   const emailLabel = locale === "es" ? "Email" : "Email"
 
-  const track = (eventName: string) => {
+  const trackGA = (eventName: string) => {
     try {
       window.gtag?.("event", eventName, { page_path: window.location.pathname })
     } catch {
@@ -33,12 +35,23 @@ export default function ContactLinks({ locale = "en" }: ContactLinksProps) {
     }
   }
 
+  const onEmailClick = () => {
+    trackGA("contact_email_click")
+    trackMeta("Contact", { method: "email", language: locale })
+  }
+
+  const onWhatsAppClick = () => {
+    trackGA("contact_whatsapp_click")
+    // WhatsApp click is high intent → treat as Lead
+    trackMeta("Lead", { method: "whatsapp", language: locale })
+  }
+
   return (
     <div className="space-y-3">
       <a
         href="mailto:hello@dubanronald.com"
         aria-label={emailLabel}
-        onClick={() => track("contact_email_click")}
+        onClick={onEmailClick}
         className="inline-flex items-center px-1 py-2 text-sm text-neutral-200 underline-offset-4 transition hover:text-[var(--fg)] hover:underline"
       >
         hello@dubanronald.com
@@ -49,7 +62,7 @@ export default function ContactLinks({ locale = "en" }: ContactLinksProps) {
           href={whatsappHref}
           target="_blank"
           rel="noopener noreferrer"
-          onClick={() => track("contact_whatsapp_click")}
+          onClick={onWhatsAppClick}
           className="inline-flex items-center px-1 py-2 text-sm text-[var(--muted)] underline-offset-4 transition hover:text-[var(--fg)] hover:underline"
         >
           {whatsappLabel}
