@@ -38,7 +38,7 @@ const inter = Inter({
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   const gaId = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID
-  const metaPixelId = process.env.NEXT_PUBLIC_META_PIXEL_ID
+  const metaPixelId = process.env.NEXT_PUBLIC_META_PIXEL_ID?.trim()
 
   const orgJsonLd = {
     "@context": "https://schema.org",
@@ -58,45 +58,30 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 
   return (
     <html lang="en">
-      <body className={inter.className}>
-        <script
-          type="application/ld+json"
-          // eslint-disable-next-line react/no-danger
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(orgJsonLd) }}
+      <head>
+        {/* Debug helper: check this in view-source to confirm env is present */}
+        <meta
+          name="debug-meta-pixel-id"
+          content={metaPixelId && metaPixelId.length ? metaPixelId : "MISSING"}
         />
 
-        {/* Meta Pixel */}
+        {/* Meta Pixel (load early) */}
         {metaPixelId ? (
-          <>
-            <Script id="meta-pixel" strategy="afterInteractive">
-              {`
-                !function(f,b,e,v,n,t,s)
-                {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-                n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-                if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
-                n.queue=[];t=b.createElement(e);t.async=!0;
-                t.src=v;s=b.getElementsByTagName(e)[0];
-                s.parentNode.insertBefore(t,s)}(window, document,'script',
-                'https://connect.facebook.net/en_US/fbevents.js');
+          <Script id="meta-pixel" strategy="beforeInteractive">
+            {`
+              !function(f,b,e,v,n,t,s)
+              {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+              n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+              if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+              n.queue=[];t=b.createElement(e);t.async=!0;
+              t.src=v;s=b.getElementsByTagName(e)[0];
+              s.parentNode.insertBefore(t,s)}(window, document,'script',
+              'https://connect.facebook.net/en_US/fbevents.js');
 
-                fbq('init', '${metaPixelId}');
-                fbq('track', 'PageView');
-              `}
-            </Script>
-
-            <noscript>
-              <img
-                height="1"
-                width="1"
-                style={{ display: "none" }}
-                src={`https://www.facebook.com/tr?id=${metaPixelId}&ev=PageView&noscript=1`}
-                alt=""
-              />
-            </noscript>
-
-            {/* PageView on client-side route changes */}
-            <MetaPixelPageView />
-          </>
+              fbq('init', ${JSON.stringify(metaPixelId)});
+              fbq('track', 'PageView');
+            `}
+          </Script>
         ) : null}
 
         {/* Google Analytics */}
@@ -117,6 +102,30 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             </Script>
           </>
         ) : null}
+      </head>
+
+      <body className={inter.className}>
+        <script
+          type="application/ld+json"
+          // eslint-disable-next-line react/no-danger
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(orgJsonLd) }}
+        />
+
+        {/* Meta Pixel noscript fallback */}
+        {metaPixelId ? (
+          <noscript>
+            <img
+              height="1"
+              width="1"
+              style={{ display: "none" }}
+              src={`https://www.facebook.com/tr?id=${metaPixelId}&ev=PageView&noscript=1`}
+              alt=""
+            />
+          </noscript>
+        ) : null}
+
+        {/* PageView on client-side route changes */}
+        <MetaPixelPageView />
 
         {children}
       </body>
