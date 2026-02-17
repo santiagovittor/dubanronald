@@ -1,8 +1,13 @@
 import "./globals.css"
-import type { Metadata } from "next"
+import type { Metadata, Viewport } from "next"
 import Script from "next/script"
 import { Inter } from "next/font/google"
+import { Suspense } from "react"
 import MetaPixelPageView from "@/components/MetaPixelPageView"
+
+export const viewport: Viewport = {
+  themeColor: "#0b0b0b",
+}
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://dubanronald.com"),
@@ -10,7 +15,6 @@ export const metadata: Metadata = {
   description:
     "Digital marketing and growth systems for teams that treat marketing as a continuous system, not isolated campaigns.",
   robots: { index: true, follow: true },
-  themeColor: "#0b0b0b",
   openGraph: {
     title: "Duban Ronald | Growth systems for digital acquisition",
     description:
@@ -58,30 +62,48 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 
   return (
     <html lang="en">
-      <head>
-        {/* Debug helper: check this in view-source to confirm env is present */}
-        <meta
-          name="debug-meta-pixel-id"
-          content={metaPixelId && metaPixelId.length ? metaPixelId : "MISSING"}
+      <body className={inter.className}>
+        {/* Org schema */}
+        <script
+          type="application/ld+json"
+          // eslint-disable-next-line react/no-danger
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(orgJsonLd) }}
         />
 
-        {/* Meta Pixel (load early) */}
+        {/* Meta Pixel */}
         {metaPixelId ? (
-          <Script id="meta-pixel" strategy="beforeInteractive">
-            {`
-              !function(f,b,e,v,n,t,s)
-              {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-              n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-              if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
-              n.queue=[];t=b.createElement(e);t.async=!0;
-              t.src=v;s=b.getElementsByTagName(e)[0];
-              s.parentNode.insertBefore(t,s)}(window, document,'script',
-              'https://connect.facebook.net/en_US/fbevents.js');
+          <>
+            <Script id="meta-pixel" strategy="beforeInteractive">
+              {`
+                !function(f,b,e,v,n,t,s)
+                {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+                n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+                if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+                n.queue=[];t=b.createElement(e);t.async=!0;
+                t.src=v;s=b.getElementsByTagName(e)[0];
+                s.parentNode.insertBefore(t,s)}(window, document,'script',
+                'https://connect.facebook.net/en_US/fbevents.js');
 
-              fbq('init', ${JSON.stringify(metaPixelId)});
-              fbq('track', 'PageView');
-            `}
-          </Script>
+                fbq('init', ${JSON.stringify(metaPixelId)});
+                fbq('track', 'PageView');
+              `}
+            </Script>
+
+            <noscript>
+              <img
+                height="1"
+                width="1"
+                style={{ display: "none" }}
+                src={`https://www.facebook.com/tr?id=${metaPixelId}&ev=PageView&noscript=1`}
+                alt=""
+              />
+            </noscript>
+
+            {/* REQUIRED for useSearchParams() inside MetaPixelPageView */}
+            <Suspense fallback={null}>
+              <MetaPixelPageView />
+            </Suspense>
+          </>
         ) : null}
 
         {/* Google Analytics */}
@@ -102,30 +124,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             </Script>
           </>
         ) : null}
-      </head>
-
-      <body className={inter.className}>
-        <script
-          type="application/ld+json"
-          // eslint-disable-next-line react/no-danger
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(orgJsonLd) }}
-        />
-
-        {/* Meta Pixel noscript fallback */}
-        {metaPixelId ? (
-          <noscript>
-            <img
-              height="1"
-              width="1"
-              style={{ display: "none" }}
-              src={`https://www.facebook.com/tr?id=${metaPixelId}&ev=PageView&noscript=1`}
-              alt=""
-            />
-          </noscript>
-        ) : null}
-
-        {/* PageView on client-side route changes */}
-        <MetaPixelPageView />
 
         {children}
       </body>
