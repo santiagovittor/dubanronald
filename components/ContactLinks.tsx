@@ -1,10 +1,11 @@
 "use client"
 
-import { trackMeta } from "@/lib/metaPixel"
+import type React from "react"
 
 declare global {
   interface Window {
     gtag?: (...args: any[]) => void
+    fbq?: (...args: any[]) => void
   }
 }
 
@@ -13,6 +14,7 @@ type ContactLinksProps = {
 }
 
 const WHATSAPP_NUMBER = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER
+const EMAIL = "hello@dubanronald.com"
 
 export default function ContactLinks({ locale = "en" }: ContactLinksProps) {
   const text =
@@ -25,7 +27,7 @@ export default function ContactLinks({ locale = "en" }: ContactLinksProps) {
     : null
 
   const whatsappLabel = locale === "es" ? "WhatsApp (consultas)" : "WhatsApp (inquiries)"
-  const emailLabel = locale === "es" ? "Email" : "Email"
+  const emailLabel = "Email"
 
   const trackGA = (eventName: string) => {
     try {
@@ -35,26 +37,45 @@ export default function ContactLinks({ locale = "en" }: ContactLinksProps) {
     }
   }
 
-  const onEmailClick = () => {
-    trackGA("contact_email_click")
-    trackMeta("Contact", { method: "email", language: locale })
+  const trackMeta = (eventName: "Lead" | "Contact", params: Record<string, any>) => {
+    try {
+      // If fbq is blocked by extensions, this safely does nothing
+      window.fbq?.("track", eventName, params)
+    } catch {
+      // no-op
+    }
   }
 
-  const onWhatsAppClick = () => {
+  const onEmailClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    e.preventDefault()
+    trackGA("contact_email_click")
+    trackMeta("Contact", { method: "email", language: locale })
+
+    setTimeout(() => {
+      window.location.href = `mailto:${EMAIL}`
+    }, 200)
+  }
+
+  const onWhatsAppClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    if (!whatsappHref) return
+    e.preventDefault()
     trackGA("contact_whatsapp_click")
-    // WhatsApp click is high intent → treat as Lead
     trackMeta("Lead", { method: "whatsapp", language: locale })
+
+    setTimeout(() => {
+      window.open(whatsappHref, "_blank", "noopener,noreferrer")
+    }, 200)
   }
 
   return (
     <div className="space-y-3">
       <a
-        href="mailto:hello@dubanronald.com"
+        href={`mailto:${EMAIL}`}
         aria-label={emailLabel}
         onClick={onEmailClick}
         className="inline-flex items-center px-1 py-2 text-sm text-neutral-200 underline-offset-4 transition hover:text-[var(--fg)] hover:underline"
       >
-        hello@dubanronald.com
+        {EMAIL}
       </a>
 
       {whatsappHref ? (
