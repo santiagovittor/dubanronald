@@ -2,27 +2,47 @@ type FooterProps = {
   locale?: "en" | "es"
 }
 
-export default function Footer({ locale = "en" }: FooterProps) {
+export default function Footer({ locale: _locale = "en" }: FooterProps) {
   const year = new Date().getFullYear()
-  const emailLabel = locale === "es" ? "Email" : "Email"
-  const tagline = locale === "es" ? "Sistemas de growth." : "Growth systems."
 
   return (
-    <footer className="mx-auto max-w-5xl px-6 pb-14 md:pb-16">
-      <div className="border-t border-neutral-800 pt-8 text-xs text-[var(--muted)]">
-        <div className="flex flex-col gap-2 sm:flex-row sm:items-start sm:justify-between">
-          <div className="flex flex-col gap-3">
-            <span>© {year} Duban Ronald</span>
-            <span className="text-neutral-400">{tagline}</span>
+    <footer style={{ padding: "3rem 0" }}>
+      <div className="max-w-6xl mx-auto px-6">
+        <div
+          className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between"
+          style={{ borderTop: "1px solid var(--border)", paddingTop: "2rem" }}
+        >
+          <div className="flex flex-col">
+            <span
+              className="uppercase"
+              style={{
+                color: "var(--cream)",
+                fontWeight: 700,
+                letterSpacing: "0.08em",
+                fontSize: "0.875rem",
+              }}
+            >
+              DUBAN RONALD
+            </span>
+            <span
+              style={{
+                color: "var(--muted)",
+                fontSize: "0.875rem",
+                marginTop: "0.25rem",
+              }}
+            >
+              Performance media. Built to compound.
+            </span>
           </div>
 
-          <a
-            href="mailto:hello@dubanronald.com"
-            aria-label={emailLabel}
-            className="underline-offset-4 transition hover:text-[var(--fg)] hover:underline"
+          <span
+            style={{
+              color: "var(--muted)",
+              fontSize: "0.875rem",
+            }}
           >
-            hello@dubanronald.com
-          </a>
+            © {year} Duban Ronald
+          </span>
         </div>
       </div>
     </footer>

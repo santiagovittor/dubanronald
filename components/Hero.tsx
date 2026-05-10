@@ -1,293 +1,265 @@
 "use client"
 
 import { useEffect, useRef, useState } from "react"
+import { motion, useMotionValue, useSpring, useReducedMotion } from "motion/react"
+import { GeistSans } from "geist/font/sans"
 
-type HeroProps = {
-  locale?: "en" | "es"
-}
+type HeroProps = { locale?: "en" | "es" }
 
-type IdleCallbackHandle = number
+const EASE: [number, number, number, number] = [0.25, 0.46, 0.45, 0.94]
 
 export default function Hero({ locale = "en" }: HeroProps) {
-  const sectionRef = useRef<HTMLElement | null>(null)
+  const isEs = locale === "es"
+  const reduced = useReducedMotion()
+  const noAnim = reduced === true
 
-  const overlayRef = useRef<HTMLDivElement | null>(null)
-  const headlineRef = useRef<HTMLHeadingElement | null>(null)
-  const subcopyRef = useRef<HTMLParagraphElement | null>(null)
+  const [scrolled, setScrolled] = useState(false)
+  const [isFineMouse, setIsFineMouse] = useState(false)
+
   const dotRef = useRef<HTMLSpanElement | null>(null)
+  const btnRef = useRef<HTMLAnchorElement | null>(null)
 
-  const rafScrollRef = useRef<number | null>(null)
-  const rafAnimRef = useRef<number | null>(null)
-
-  const targetPRef = useRef(0)
-
-  const scaleRef = useRef(1)
-  const heroOpacityRef = useRef(1)
-  const subOpacityRef = useRef(1)
-  const subShiftRef = useRef(0)
-
-  const [reducedMotion, setReducedMotion] = useState<boolean>(() => {
-    if (typeof window === "undefined" || !window.matchMedia) return false
-    try {
-      return window.matchMedia("(prefers-reduced-motion: reduce)").matches
-    } catch {
-      return false
-    }
-  })
+  const mx = useMotionValue(0)
+  const my = useMotionValue(0)
+  const springX = useSpring(mx, { stiffness: 300, damping: 30 })
+  const springY = useSpring(my, { stiffness: 300, damping: 30 })
 
   useEffect(() => {
-    if (typeof window === "undefined" || !window.matchMedia) return
-    const mq = window.matchMedia("(prefers-reduced-motion: reduce)")
-    const handleChange = (event: MediaQueryListEvent) => setReducedMotion(event.matches)
-    mq.addEventListener("change", handleChange)
-    return () => mq.removeEventListener("change", handleChange)
+    const mq = window.matchMedia("(pointer: fine)")
+    setIsFineMouse(mq.matches)
+    const h = (e: MediaQueryListEvent) => setIsFineMouse(e.matches)
+    mq.addEventListener("change", h)
+    return () => mq.removeEventListener("change", h)
   }, [])
 
   useEffect(() => {
-    if (typeof window === "undefined") return
+    const h = () => setScrolled(window.scrollY > 100)
+    window.addEventListener("scroll", h, { passive: true })
+    return () => window.removeEventListener("scroll", h)
+  }, [])
 
-    const w = window as unknown as Window & typeof globalThis
+  const handleMouseMove = (e: React.MouseEvent) => {
+    if (!btnRef.current) return
+    const r = btnRef.current.getBoundingClientRect()
+    const cx = r.left + r.width / 2
+    const cy = r.top + r.height / 2
+    mx.set(Math.max(-8, Math.min(8, ((e.clientX - cx) / (r.width / 2)) * 8)))
+    my.set(Math.max(-8, Math.min(8, ((e.clientY - cy) / (r.height / 2)) * 8)))
+  }
 
-    const section = sectionRef.current
-    const overlay = overlayRef.current
-    const headline = headlineRef.current
-    const subcopy = subcopyRef.current
-    const dot = dotRef.current
+  const handleMouseLeave = () => {
+    mx.set(0)
+    my.set(0)
+  }
 
-    if (!section || !overlay || !headline || !subcopy || !dot) return
-
-    const clamp01 = (n: number) => Math.min(1, Math.max(0, n))
-
-    const computeTargets = (p: number) => {
-      const growEnd = 0.7
-      const subFadeStart = 0.62
-      const subFadeEnd = 0.9
-      const fadeStart = 0.9
-
-      let targetScale = 1
-      if (p <= growEnd) {
-        const t = p / growEnd
-        targetScale = 1 + t * 0.22
-      } else {
-        const t = (p - growEnd) / (1 - growEnd)
-        targetScale = 1.22 + t * 0.06
-      }
-
-      let heroOpacity = 1
-      if (p > fadeStart) {
-        const t = (p - fadeStart) / (1 - fadeStart)
-        heroOpacity = 1 - clamp01(t)
-      }
-
-      let subOpacity = 1
-      if (p <= subFadeStart) subOpacity = 1
-      else if (p >= subFadeEnd) subOpacity = 0
-      else {
-        const t = (p - subFadeStart) / (subFadeEnd - subFadeStart)
-        subOpacity = 1 - clamp01(t)
-      }
-
-      const subShift = Math.min(72, (targetScale - 1) * 240)
-
-      return { targetScale, heroOpacity, subOpacity, subShift }
-    }
-
-    const apply = () => {
-      rafAnimRef.current = null
-
-      const p = reducedMotion ? 0 : targetPRef.current
-      const { targetScale, heroOpacity, subOpacity, subShift } = computeTargets(p)
-
-      const alpha = 0.14
-
-      scaleRef.current = scaleRef.current + (targetScale - scaleRef.current) * alpha
-      heroOpacityRef.current =
-        heroOpacityRef.current + (heroOpacity - heroOpacityRef.current) * alpha
-      subOpacityRef.current =
-        subOpacityRef.current + (subOpacity - subOpacityRef.current) * alpha
-      subShiftRef.current = subShiftRef.current + (subShift - subShiftRef.current) * alpha
-
-      headline.style.transform = `translate3d(0,0,0) scale(${scaleRef.current})`
-      overlay.style.opacity = String(heroOpacityRef.current)
-
-      subcopy.style.opacity = String(subOpacityRef.current)
-      subcopy.style.transform = `translate3d(0, ${subShiftRef.current}px, 0)`
-
-      const atTop = p <= 0.001
-      if (!reducedMotion) dot.classList.toggle("dr-dot-bounce", atTop)
-      else dot.classList.remove("dr-dot-bounce")
-
-      overlay.style.pointerEvents = heroOpacityRef.current <= 0.02 ? "none" : "auto"
-
-      const still =
-        Math.abs(targetScale - scaleRef.current) > 0.001 ||
-        Math.abs(heroOpacity - heroOpacityRef.current) > 0.002 ||
-        Math.abs(subOpacity - subOpacityRef.current) > 0.003 ||
-        Math.abs(subShift - subShiftRef.current) > 0.25
-
-      if (still) rafAnimRef.current = w.requestAnimationFrame(apply)
-    }
-
-    const scheduleApply = () => {
-      if (rafAnimRef.current !== null) return
-      rafAnimRef.current = w.requestAnimationFrame(apply)
-    }
-
-    const updateProgress = () => {
-      rafScrollRef.current = null
-
-      const viewportHeight = w.innerHeight || 1
-      const sectionHeight = section.offsetHeight || viewportHeight
-      const scrollRange = sectionHeight - viewportHeight
-
-      if (scrollRange <= 0) {
-        targetPRef.current = 0
-        scheduleApply()
-        return
-      }
-
-      const rect = section.getBoundingClientRect()
-      const raw = -rect.top / scrollRange
-      targetPRef.current = clamp01(raw)
-
-      scheduleApply()
-    }
-
-    const onScrollOrResize = () => {
-      if (rafScrollRef.current !== null) return
-      rafScrollRef.current = w.requestAnimationFrame(updateProgress)
-    }
-
-    if (!reducedMotion) dot.classList.add("dr-dot-bounce")
-    else dot.classList.remove("dr-dot-bounce")
-
-    let started = false
-    let startRaf: number | null = null
-    let idleId: IdleCallbackHandle | null = null
-    let startTimeout: ReturnType<typeof setTimeout> | null = null
-
-    const start = () => {
-      if (started) return
-      started = true
-
-      onScrollOrResize()
-      window.addEventListener("scroll", onScrollOrResize, { passive: true })
-      window.addEventListener("resize", onScrollOrResize)
-    }
-
-    startRaf = window.requestAnimationFrame(() => {
-      const ric = (
-        window as unknown as {
-          requestIdleCallback?: (cb: () => void, opts?: { timeout: number }) => number
-        }
-      ).requestIdleCallback
-
-      if (typeof ric === "function") {
-        idleId = ric(start, { timeout: 1200 })
-      } else {
-        startTimeout = setTimeout(start, 350)
-      }
-    })
-
-    return () => {
-      if (started) {
-        window.removeEventListener("scroll", onScrollOrResize)
-        window.removeEventListener("resize", onScrollOrResize)
-      }
-
-      if (startRaf !== null) window.cancelAnimationFrame(startRaf)
-
-      const cic = (window as unknown as { cancelIdleCallback?: (id: number) => void })
-        .cancelIdleCallback
-      if (idleId !== null && typeof cic === "function") cic(idleId)
-
-      if (startTimeout !== null) clearTimeout(startTimeout)
-
-      if (rafScrollRef.current !== null) window.cancelAnimationFrame(rafScrollRef.current)
-      if (rafAnimRef.current !== null) window.cancelAnimationFrame(rafAnimRef.current)
-
-      rafScrollRef.current = null
-      rafAnimRef.current = null
-    }
-  }, [reducedMotion])
-
-  const isEs = locale === "es"
-  const line1 = isEs ? "Construimos" : "We build"
-  const line2 = isEs ? "sistemas de growth" : "growth systems"
   const subcopy = isEs
     ? "Sistemas de growth, paid media y analytics para equipos que tratan al marketing como un sistema continuo, no como campañas aisladas."
-    : "Digital acquisition, paid media, and performance infrastructure for teams that treat marketing as a system, not a campaign."
+    : "Most ad accounts don't fail because of budget. They fail because the ad sends people to a page that wasn't built to convert, and nothing in the tracking tells you where you're losing them. We build acquisition systems that close the gap."
+
+  const ctaText = isEs ? "Escríbenos" : "Introduce your business"
+
+  const wSpan = (
+    word: string,
+    idx: number,
+    delay: number,
+    trailing = true,
+    extraStyle?: React.CSSProperties,
+  ) => {
+    const inner = (
+      <>
+        {word}
+        {trailing ? " " : ""}
+      </>
+    )
+    if (noAnim) {
+      return (
+        <span key={idx} style={{ display: "inline-block", ...extraStyle }}>
+          {inner}
+        </span>
+      )
+    }
+    return (
+      <motion.span
+        key={idx}
+        initial={{ opacity: 0, y: 40 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.55, delay, ease: EASE }}
+        style={{ display: "inline-block", ...extraStyle }}
+      >
+        {inner}
+      </motion.span>
+    )
+  }
+
+  const dotClass = noAnim ? "" : "dr-dot-bounce"
+
+  const headlineEn = (
+    <>
+      {["Your", "budget", "isn't", "the"].map((w, i) => wSpan(w, i, i * 0.07))}
+      {noAnim ? (
+        <span style={{ display: "inline-block", color: "var(--orange)" }}>
+          problem
+          <span ref={dotRef} className={dotClass}>.</span>
+        </span>
+      ) : (
+        <motion.span
+          initial={{ opacity: 0, y: 40 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.55, delay: 4 * 0.07, ease: EASE }}
+          style={{ display: "inline-block", color: "var(--orange)" }}
+        >
+          problem
+          <span ref={dotRef} className={dotClass}>.</span>
+        </motion.span>
+      )}
+    </>
+  )
+
+  const headlineEs = (
+    <>
+      <span className="block">
+        {wSpan("Construimos", 0, 0, false)}
+      </span>
+      <span className="block">
+        {["sistemas", "de"].map((w, i) => wSpan(w, i, (1 + i) * 0.07))}
+        {noAnim ? (
+          <span style={{ display: "inline-block" }}>
+            growth
+            <span ref={dotRef} className={dotClass} style={{ color: "var(--orange)" }}>.</span>
+          </span>
+        ) : (
+          <motion.span
+            initial={{ opacity: 0, y: 40 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.55, delay: 3 * 0.07, ease: EASE }}
+            style={{ display: "inline-block" }}
+          >
+            growth
+            <span ref={dotRef} className={dotClass} style={{ color: "var(--orange)" }}>.</span>
+          </motion.span>
+        )}
+      </span>
+    </>
+  )
 
   return (
-    <>
-      <section ref={sectionRef} className="relative h-[160vh]" />
+    <section className="relative flex h-[calc(100svh-4rem)] items-center">
+      <div className="mx-auto w-full max-w-6xl px-6">
+        <h1
+          className={`${GeistSans.className} font-bold`}
+          style={{
+            fontSize: "var(--text-hero)",
+            color: "var(--cream)",
+            lineHeight: "var(--leading-tight)",
+          }}
+        >
+          {isEs ? headlineEs : headlineEn}
+        </h1>
+
+        {noAnim ? (
+          <p
+            style={{
+              fontSize: "1.125rem",
+              color: "var(--muted)",
+              maxWidth: "520px",
+              marginTop: "1.5rem",
+              lineHeight: "var(--leading-body)",
+            }}
+          >
+            {subcopy}
+          </p>
+        ) : (
+          <motion.p
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.6, delay: 0.5 }}
+            style={{
+              fontSize: "1.125rem",
+              color: "var(--muted)",
+              maxWidth: "520px",
+              marginTop: "1.5rem",
+              lineHeight: "var(--leading-body)",
+            }}
+          >
+            {subcopy}
+          </motion.p>
+        )}
+
+        {noAnim ? (
+          <div style={{ marginTop: "2.5rem", display: "inline-block" }}>
+            <a
+              ref={btnRef}
+              href="mailto:hello@dubanronald.com"
+              className={`${GeistSans.className} font-bold inline-block uppercase`}
+              style={{
+                backgroundColor: "var(--orange)",
+                color: "var(--bg)",
+                letterSpacing: "0.08em",
+                padding: "1rem 2.5rem",
+              }}
+            >
+              {ctaText}
+            </a>
+          </div>
+        ) : (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.6, delay: 0.8 }}
+            style={{ marginTop: "2.5rem", display: "inline-block" }}
+          >
+            <motion.div
+              style={{
+                display: "inline-block",
+                x: isFineMouse ? springX : 0,
+                y: isFineMouse ? springY : 0,
+              }}
+              onMouseMove={isFineMouse ? handleMouseMove : undefined}
+              onMouseLeave={isFineMouse ? handleMouseLeave : undefined}
+            >
+              <a
+                ref={btnRef}
+                href="mailto:hello@dubanronald.com"
+                className={`${GeistSans.className} font-bold inline-block uppercase`}
+                style={{
+                  backgroundColor: "var(--orange)",
+                  color: "var(--bg)",
+                  letterSpacing: "0.08em",
+                  padding: "1rem 2.5rem",
+                }}
+              >
+                {ctaText}
+              </a>
+            </motion.div>
+          </motion.div>
+        )}
+      </div>
 
       <div
-        ref={overlayRef}
-        className="fixed left-0 right-0 top-16 z-10 flex h-[calc(100svh-4rem)] items-center"
-        style={{
-          opacity: 1,
-          willChange: "opacity",
-          pointerEvents: "auto",
-        }}
+        className="pointer-events-none absolute bottom-8 left-1/2 -translate-x-1/2"
+        style={{ opacity: scrolled ? 0 : 1, transition: "opacity 0.4s ease" }}
       >
-        {/* Decorative hero layer – only on md+ to keep mobile light */}
-        <div className="pointer-events-none absolute inset-0 z-0 hidden md:block">
+        {noAnim ? (
           <div
-            className="absolute inset-0"
             style={{
-              backgroundImage:
-                "radial-gradient(900px 520px at 22% 40%, rgba(255,255,255,0.07), transparent 62%), radial-gradient(820px 520px at 82% 20%, rgba(158,147,255,0.06), transparent 60%)",
-              opacity: 0.9,
+              width: "1px",
+              height: "40px",
+              backgroundColor: "var(--muted)",
             }}
           />
-          <div
-            className="absolute inset-0"
+        ) : (
+          <motion.div
+            animate={{ scaleY: [0, 1, 0] }}
+            transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
             style={{
-              backgroundImage:
-                "radial-gradient(circle at 1px 1px, rgba(255,255,255,0.18) 1px, transparent 0)",
-              backgroundSize: "26px 26px",
-              opacity: 0.16,
-              maskImage: "radial-gradient(80% 65% at 30% 45%, black 0%, transparent 70%)",
-              WebkitMaskImage:
-                "radial-gradient(80% 65% at 30% 45%, black 0%, transparent 70%)",
+              width: "1px",
+              height: "40px",
+              backgroundColor: "var(--muted)",
+              transformOrigin: "top",
             }}
           />
-        </div>
-
-        <div className="mx-auto w-full max-w-5xl px-6 relative z-10">
-          <div className="max-w-3xl space-y-5">
-            <h1
-              ref={headlineRef}
-              className="text-[clamp(4.25rem,8vw,6rem)] font-semibold tracking-tight leading-[0.9]"
-              style={{
-                transform: "translate3d(0,0,0) scale(1)",
-                transformOrigin: "left center",
-                willChange: "transform",
-                backfaceVisibility: "hidden",
-              }}
-            >
-              <span className="block">{line1}</span>
-              <span className="block">
-                {line2}
-                <span ref={dotRef}>.</span>
-              </span>
-            </h1>
-
-            <p
-              ref={subcopyRef}
-              className="text-sm text-neutral-400 leading-relaxed"
-              style={{
-                opacity: 1,
-                transform: "translate3d(0,0,0)",
-                willChange: "transform, opacity",
-              }}
-            >
-              {subcopy}
-            </p>
-          </div>
-        </div>
+        )}
       </div>
-    </>
+    </section>
   )
 }

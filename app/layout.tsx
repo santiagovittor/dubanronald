@@ -4,6 +4,7 @@ import Script from "next/script"
 import { Inter } from "next/font/google"
 import { Suspense } from "react"
 import MetaPixelPageView from "@/components/MetaPixelPageView"
+import MeshGradient from "@/components/MeshGradient"
 
 export const viewport: Viewport = {
   themeColor: "#0b0b0b",
@@ -63,6 +64,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en">
       <body className={inter.className}>
+        <MeshGradient />
+
         {/* Org schema */}
         <script
           type="application/ld+json"

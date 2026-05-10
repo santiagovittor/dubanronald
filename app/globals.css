@@ -1,15 +1,35 @@
 @import "tailwindcss";
 
 :root {
-  --bg: #0b0b0b;
-  --fg: #eaeaea;
-  --muted: #b3b3b3;
+  /* backgrounds */
+  --bg: #2a2a2a;
+  --surface: #333333;
+  --border: #444444;
 
-  /* restrained accent */
-  --accent: #9e93ff;
+  /* brand palette */
+  --teal-deep: #0b525b;
+  --teal-mid: #1b9aaa;
+  --orange: #f26a1b;
+  --cream: #f7d08a;
+
+  /* text */
+  --fg: #eaeaea;
+  --text: #f7d08a;
+  --muted: #9a8f7e;
+
+  /* accents */
+  --accent: #f26a1b;
+  --accent-2: #1b9aaa;
 
   /* rules/dividers */
   --rule: rgba(255, 255, 255, 0.08);
+
+  /* type scale */
+  --text-hero: clamp(3.5rem, 9vw, 8rem);
+  --text-display: clamp(2rem, 5vw, 4rem);
+  --text-body: 1rem;
+  --leading-tight: 1.05;
+  --leading-body: 1.6;
 }
 
 html {
@@ -17,6 +37,7 @@ html {
   color: var(--fg);
   overflow-x: hidden;
   color-scheme: dark;
+  scroll-behavior: smooth;
 
   position: relative;
   isolation: isolate;
@@ -88,6 +109,18 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  pointer-events: none;
+  opacity: 0.04;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+  background-size: 200px 200px;
+}
+
 ::selection {
   background: rgba(158, 147, 255, 0.25);
   color: var(--fg);
@@ -128,5 +161,26 @@ body {
   .dr-dot-bounce {
     animation: none;
     transform: none;
+  }
+}
+
+@keyframes meshBlob1 {
+  0%   { transform: translate(0, 0) scale(1); }
+  33%  { transform: translate(15vw, 10vh) scale(1.1); }
+  66%  { transform: translate(5vw, 25vh) scale(0.95); }
+  100% { transform: translate(20vw, 15vh) scale(1.05); }
+}
+
+@keyframes meshBlob2 {
+  0%   { transform: translate(0, 0) scale(1); }
+  33%  { transform: translate(-12vw, -8vh) scale(1.08); }
+  66%  { transform: translate(-20vw, -15vh) scale(0.92); }
+  100% { transform: translate(-8vw, -20vh) scale(1.1); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mesh-blob-1,
+  .mesh-blob-2 {
+    animation-play-state: paused;
   }
 }
