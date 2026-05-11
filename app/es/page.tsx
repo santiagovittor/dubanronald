@@ -1,6 +1,7 @@
 import type { Metadata } from "next"
 import Nav from "@/components/Nav"
 import Hero from "@/components/Hero"
+import FilmRebate from "@/components/FilmRebate"
 import HowItWorks from "@/components/HowItWorks"
 import WhatWeDo from "@/components/WhatWeDo"
 import BreakSection from "@/components/BreakSection"
@@ -38,6 +39,7 @@ export default function HomeEs() {
     <>
       <Nav locale="es" />
       <Hero locale="es" />
+      <FilmRebate />
       <HowItWorks locale="es" />
       <BreakSection locale="es" />
       <WhatWeDo locale="es" />

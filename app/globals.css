@@ -170,3 +170,61 @@ body::after {
 .hiw-step-name:hover {
   color: var(--accent);
 }
+
+/* 35mm film rebate strip */
+.film-rebate {
+  position: relative;
+  width: 100%;
+  height: 12px;
+  overflow: hidden;
+  flex-shrink: 0;
+  background: linear-gradient(to right,
+    #1a1a1a 0% 4%,
+    #2d4a6b 4% 10%,
+    #1e6b8a 10% 17%,
+    #2d9e8f 17% 26%,
+    #4db89e 26% 33%,
+    #8bc4a0 33% 39%,
+    #c8d97a 39% 46%,
+    #e8d44a 46% 55%,
+    #e8a832 55% 64%,
+    #d4631e 64% 74%,
+    #b83218 74% 83%,
+    #8b1a2d 83% 90%,
+    #4a1228 90% 96%,
+    #1a1a1a 96% 100%
+  );
+}
+
+@media (min-width: 768px) {
+  .film-rebate {
+    height: 18px;
+  }
+}
+
+.film-rebate::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+  background-size: 200px 200px;
+  opacity: 0.55;
+  mix-blend-mode: overlay;
+}
+
+.film-rebate::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(to right,
+    rgba(255, 255, 255, 0.12) 0%,
+    rgba(255, 255, 255, 0.04) 20%,
+    rgba(255, 255, 255, 0) 50%,
+    rgba(255, 255, 255, 0.04) 80%,
+    rgba(255, 255, 255, 0.10) 100%
+  );
+  mix-blend-mode: screen;
+}

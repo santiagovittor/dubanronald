@@ -1,3 +1,5 @@
+import FilmRebate from "@/components/FilmRebate"
+
 type FooterProps = {
   locale?: "en" | "es"
 }
@@ -6,11 +8,12 @@ export default function Footer({ locale: _locale = "en" }: FooterProps) {
   const year = new Date().getFullYear()
 
   return (
-    <footer style={{ padding: "3rem 0", backgroundColor: "var(--bg-warm)" }}>
-      <div className="max-w-6xl mx-auto px-6">
+    <footer style={{ backgroundColor: "var(--bg-warm)" }}>
+      <FilmRebate />
+      <div className="max-w-6xl mx-auto px-6" style={{ padding: "3rem 0" }}>
         <div
           className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between"
-          style={{ borderTop: "1px solid var(--border)", paddingTop: "2rem" }}
+          style={{ paddingTop: "2rem" }}
         >
           <div className="flex flex-col">
             <span
