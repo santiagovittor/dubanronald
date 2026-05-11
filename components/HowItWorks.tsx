@@ -4,7 +4,6 @@ import { useLayoutEffect, useRef } from "react"
 import { gsap } from "gsap"
 import { ScrollTrigger } from "gsap/ScrollTrigger"
 import { useReducedMotion } from "motion/react"
-import { GeistSans } from "geist/font/sans"
 
 type HowItWorksProps = {
   locale?: "en" | "es"
@@ -13,8 +12,6 @@ type HowItWorksProps = {
 const content = {
   en: {
     label: "How it works",
-    intro:
-      "Before we touch an ad account, we map the full path: where people see your ads, where they land, and what happens after they arrive. Most businesses lose qualified buyers somewhere between the ad click and the contact form — not because the ad was bad, but because nobody built what comes after it with the same intent.",
     steps: [
       {
         num: "01",
@@ -35,8 +32,6 @@ const content = {
   },
   es: {
     label: "Cómo funciona",
-    intro:
-      "Antes de tocar una cuenta de anuncios, analizamos todo el proceso: dónde ve la gente tu anuncio, a qué página llega, y qué pasa después de que entra. La mayoría de los negocios pierde clientes calificados en algún punto entre el clic en el anuncio y el formulario de contacto; no porque el anuncio fuera malo, sino porque nadie construyó lo que sigue con la misma intención.",
     steps: [
       {
         num: "01",
@@ -85,7 +80,7 @@ function stepState(
 export default function HowItWorks({ locale = "en" }: HowItWorksProps) {
   const reduced = useReducedMotion()
   const noAnim = reduced === true
-  const { label, intro, steps } = content[locale]
+  const { label, steps } = content[locale]
 
   const scrollZoneRef = useRef<HTMLDivElement>(null)
   const progressFillRef = useRef<HTMLDivElement>(null)
@@ -138,20 +133,11 @@ export default function HowItWorks({ locale = "en" }: HowItWorksProps) {
               color: "var(--muted)",
               textTransform: "uppercase",
               marginBottom: "3rem",
+              fontFamily: "var(--font-cormorant)",
+              fontStyle: "italic",
             }}
           >
             {label}
-          </p>
-          <p
-            style={{
-              fontSize: "1.25rem",
-              color: "var(--cream)",
-              maxWidth: "640px",
-              marginBottom: "4rem",
-              lineHeight: "var(--leading-body)",
-            }}
-          >
-            {intro}
           </p>
           <div>
             {steps.map((step, i) => (
@@ -177,7 +163,7 @@ export default function HowItWorks({ locale = "en" }: HowItWorksProps) {
                     fontSize: "6rem",
                     fontWeight: "bold",
                     color: "var(--teal-mid)",
-                    opacity: 0.15,
+                    opacity: 0.12,
                     lineHeight: 1,
                     pointerEvents: "none",
                     userSelect: "none",
@@ -186,11 +172,12 @@ export default function HowItWorks({ locale = "en" }: HowItWorksProps) {
                   {step.num}
                 </span>
                 <p
-                  className={`${GeistSans.className} text-[1.75rem] md:text-[2.5rem]`}
+                  className="text-[1.75rem] md:text-[2.5rem] hiw-step-name"
                   style={{
                     fontWeight: "bold",
-                    color: "var(--cream)",
+                    color: "var(--text)",
                     marginBottom: "0.5rem",
+                    fontFamily: "var(--font-cormorant)",
                   }}
                 >
                   {step.name}
@@ -225,19 +212,11 @@ export default function HowItWorks({ locale = "en" }: HowItWorksProps) {
               color: "var(--muted)",
               textTransform: "uppercase",
               marginBottom: "3rem",
+              fontFamily: "var(--font-cormorant)",
+              fontStyle: "italic",
             }}
           >
             {label}
-          </p>
-          <p
-            style={{
-              fontSize: "1.25rem",
-              color: "var(--cream)",
-              maxWidth: "640px",
-              lineHeight: "var(--leading-body)",
-            }}
-          >
-            {intro}
           </p>
         </div>
       </div>
@@ -290,7 +269,7 @@ export default function HowItWorks({ locale = "en" }: HowItWorksProps) {
                       fontSize: "6rem",
                       fontWeight: "bold",
                       color: "var(--teal-mid)",
-                      opacity: 0.15,
+                      opacity: 0.12,
                       lineHeight: 1,
                       pointerEvents: "none",
                       userSelect: "none",
@@ -302,13 +281,14 @@ export default function HowItWorks({ locale = "en" }: HowItWorksProps) {
 
                   {/* Step name */}
                   <p
-                    className={GeistSans.className}
+                    className="hiw-step-name"
                     style={{
                       fontSize: "var(--text-display)",
                       fontWeight: "bold",
-                      color: "var(--cream)",
+                      color: "var(--text)",
                       lineHeight: "var(--leading-tight)",
                       marginBottom: "1.5rem",
+                      fontFamily: "var(--font-cormorant)",
                     }}
                   >
                     {step.name}

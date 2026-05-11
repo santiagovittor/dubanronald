@@ -54,7 +54,7 @@ export default function Hero({ locale = "en" }: HeroProps) {
 
   const subcopy = isEs
     ? "Sistemas de growth, paid media y analytics para equipos que tratan al marketing como un sistema continuo, no como campañas aisladas."
-    : "Most ad accounts don't fail because of budget. They fail because the ad sends people to a page that wasn't built to convert, and nothing in the tracking tells you where you're losing them. We build acquisition systems that close the gap."
+    : "The ad is only half the system. We build the other half."
 
   const ctaText = isEs ? "Escríbenos" : "Introduce your business"
 
@@ -97,7 +97,7 @@ export default function Hero({ locale = "en" }: HeroProps) {
     <>
       {["Your", "budget", "isn't", "the"].map((w, i) => wSpan(w, i, i * 0.07))}
       {noAnim ? (
-        <span style={{ display: "inline-block", color: "var(--orange)" }}>
+        <span style={{ display: "inline-block", color: "var(--accent)" }}>
           problem
           <span ref={dotRef} className={dotClass}>.</span>
         </span>
@@ -106,7 +106,7 @@ export default function Hero({ locale = "en" }: HeroProps) {
           initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.55, delay: 4 * 0.07, ease: EASE }}
-          style={{ display: "inline-block", color: "var(--orange)" }}
+          style={{ display: "inline-block", color: "var(--accent)" }}
         >
           problem
           <span ref={dotRef} className={dotClass}>.</span>
@@ -149,7 +149,7 @@ export default function Hero({ locale = "en" }: HeroProps) {
           className={`${GeistSans.className} font-bold`}
           style={{
             fontSize: "var(--text-hero)",
-            color: "var(--cream)",
+            color: "var(--text)",
             lineHeight: "var(--leading-tight)",
           }}
         >
@@ -161,7 +161,7 @@ export default function Hero({ locale = "en" }: HeroProps) {
             style={{
               fontSize: "1.125rem",
               color: "var(--muted)",
-              maxWidth: "520px",
+              maxWidth: "420px",
               marginTop: "1.5rem",
               lineHeight: "var(--leading-body)",
             }}
@@ -176,7 +176,7 @@ export default function Hero({ locale = "en" }: HeroProps) {
             style={{
               fontSize: "1.125rem",
               color: "var(--muted)",
-              maxWidth: "520px",
+              maxWidth: "420px",
               marginTop: "1.5rem",
               lineHeight: "var(--leading-body)",
             }}
@@ -192,7 +192,7 @@ export default function Hero({ locale = "en" }: HeroProps) {
               href="mailto:hello@dubanronald.com"
               className={`${GeistSans.className} font-bold inline-block uppercase`}
               style={{
-                backgroundColor: "var(--orange)",
+                backgroundColor: "var(--accent)",
                 color: "var(--bg)",
                 letterSpacing: "0.08em",
                 padding: "1rem 2.5rem",
@@ -222,7 +222,7 @@ export default function Hero({ locale = "en" }: HeroProps) {
                 href="mailto:hello@dubanronald.com"
                 className={`${GeistSans.className} font-bold inline-block uppercase`}
                 style={{
-                  backgroundColor: "var(--orange)",
+                  backgroundColor: "var(--accent)",
                   color: "var(--bg)",
                   letterSpacing: "0.08em",
                   padding: "1rem 2.5rem",

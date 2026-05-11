@@ -24,7 +24,7 @@ export default function Nav({ locale = "en", enHref = "/", esHref = "/es" }: Nav
     <nav
       className="fixed top-0 left-0 right-0 z-20"
       style={{
-        background: scrolled ? "rgba(42,42,42,0.85)" : "transparent",
+        background: scrolled ? "rgba(240,232,216,0.85)" : "transparent",
         backdropFilter: scrolled ? "blur(12px)" : "none",
         WebkitBackdropFilter: scrolled ? "blur(12px)" : "none",
         borderBottom: scrolled
@@ -39,7 +39,7 @@ export default function Nav({ locale = "en", enHref = "/", esHref = "/es" }: Nav
           href={homeHref}
           className="min-w-0 truncate whitespace-nowrap uppercase"
           style={{
-            color: "var(--cream)",
+            color: "var(--text)",
             fontWeight: 700,
             letterSpacing: "0.08em",
             fontSize: "0.875rem",
@@ -57,7 +57,7 @@ export default function Nav({ locale = "en", enHref = "/", esHref = "/es" }: Nav
               aria-current={isEn ? "page" : undefined}
               className="px-1 py-2"
               style={{
-                color: isEn ? "var(--cream)" : "var(--muted)",
+                color: isEn ? "var(--text)" : "var(--muted)",
                 transition: "color 0.2s",
               }}
             >
@@ -69,7 +69,7 @@ export default function Nav({ locale = "en", enHref = "/", esHref = "/es" }: Nav
               aria-current={!isEn ? "page" : undefined}
               className="px-1 py-2"
               style={{
-                color: !isEn ? "var(--cream)" : "var(--muted)",
+                color: !isEn ? "var(--text)" : "var(--muted)",
                 transition: "color 0.2s",
               }}
             >

@@ -6,7 +6,7 @@ export default function Footer({ locale: _locale = "en" }: FooterProps) {
   const year = new Date().getFullYear()
 
   return (
-    <footer style={{ padding: "3rem 0" }}>
+    <footer style={{ padding: "3rem 0", backgroundColor: "var(--bg-warm)" }}>
       <div className="max-w-6xl mx-auto px-6">
         <div
           className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between"
@@ -16,7 +16,7 @@ export default function Footer({ locale: _locale = "en" }: FooterProps) {
             <span
               className="uppercase"
               style={{
-                color: "var(--cream)",
+                color: "var(--text)",
                 fontWeight: 700,
                 letterSpacing: "0.08em",
                 fontSize: "0.875rem",

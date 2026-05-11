@@ -1,7 +1,7 @@
 import "./globals.css"
 import type { Metadata, Viewport } from "next"
 import Script from "next/script"
-import { Inter } from "next/font/google"
+import { Inter, Cormorant_Garamond } from "next/font/google"
 import { Suspense } from "react"
 import MetaPixelPageView from "@/components/MetaPixelPageView"
 import MeshGradient from "@/components/MeshGradient"
@@ -41,6 +41,13 @@ const inter = Inter({
   weight: ["400", "500", "600"],
 })
 
+const cormorant = Cormorant_Garamond({
+  subsets: ["latin"],
+  weight: ["400", "600", "700"],
+  style: ["normal", "italic"],
+  variable: "--font-cormorant",
+})
+
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   const gaId = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID
   const metaPixelId = process.env.NEXT_PUBLIC_META_PIXEL_ID?.trim()
@@ -62,7 +69,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   }
 
   return (
-    <html lang="en">
+    <html lang="en" className={cormorant.variable}>
       <body className={inter.className}>
         <MeshGradient />
 
@@ -127,6 +134,14 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             </Script>
           </>
         ) : null}
+
+        {/* Typeform popup */}
+        {/* eslint-disable-next-line @next/next/no-css-tags */}
+        <link rel="stylesheet" href="//embed.typeform.com/next/css/popup.css" />
+        <Script
+          src="//embed.typeform.com/next/embed.js"
+          strategy="afterInteractive"
+        />
 
         {children}
       </body>

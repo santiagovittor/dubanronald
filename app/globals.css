@@ -2,27 +2,24 @@
 
 :root {
   /* backgrounds */
-  --bg: #2a2a2a;
-  --surface: #333333;
-  --border: #444444;
+  --bg: #F0E8D8;
+  --bg-warm: #EAE0CC;
+  --surface: rgba(255, 255, 255, 0.4);
+  --border: rgba(0, 0, 0, 0.08);
 
   /* brand palette */
-  --teal-deep: #0b525b;
-  --teal-mid: #1b9aaa;
-  --orange: #f26a1b;
-  --cream: #f7d08a;
+  --teal-deep: #0B525B;
+  --teal-mid: #1B9AAA;
+  --orange: #C94F1A;
+  --cream: #F0E8D8;
 
   /* text */
-  --fg: #eaeaea;
-  --text: #f7d08a;
-  --muted: #9a8f7e;
+  --text: #1C1C1C;
+  --muted: #6B5E4E;
 
   /* accents */
-  --accent: #f26a1b;
-  --accent-2: #1b9aaa;
-
-  /* rules/dividers */
-  --rule: rgba(255, 255, 255, 0.08);
+  --accent: #C94F1A;
+  --accent-2: #1B9AAA;
 
   /* type scale */
   --text-hero: clamp(3.5rem, 9vw, 8rem);
@@ -34,18 +31,16 @@
 
 html {
   background-color: var(--bg);
-  color: var(--fg);
+  color: var(--text);
   overflow-x: hidden;
-  color-scheme: dark;
+  color-scheme: light;
   scroll-behavior: smooth;
 
   position: relative;
   isolation: isolate;
 }
 
-/* Desktop / larger screens:
-   Warm, film-like background with visible grain and gentle light leaks.
-*/
+/* Subtle teal + orange light leaks — sit behind content */
 html::before {
   content: "";
   position: fixed;
@@ -54,49 +49,33 @@ html::before {
   pointer-events: none;
 
   background-image:
-    /* left warm leak */
     radial-gradient(
       1300px 900px at -10% 0%,
-      rgba(255, 204, 153, 0.26),
+      rgba(27, 154, 170, 0.06),
       transparent 62%
     ),
-    /* right magenta leak */
     radial-gradient(
       1200px 850px at 110% -10%,
-      rgba(255, 140, 200, 0.2),
+      rgba(201, 79, 26, 0.05),
       transparent 64%
-    ),
-    /* bottom vignette */
-    radial-gradient(
-      1600px 1100px at 50% 115%,
-      rgba(0, 0, 0, 0.96),
-      transparent 70%
-    ),
-    /* film grain */
-    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.22'/%3E%3C/svg%3E");
+    );
 
-  background-repeat: no-repeat, no-repeat, no-repeat, repeat;
-  background-size: auto, auto, auto, 180px 180px;
-  background-position: 0 0, 0 0, 0 0, 0 0;
-  background-blend-mode: soft-light, soft-light, multiply, soft-light;
+  background-repeat: no-repeat, no-repeat;
+  background-size: auto, auto;
+  background-position: 0 0, 0 0;
 }
 
-/* Mobile:
-   Simpler but still alive: one warm radial + grain.
-*/
 @media (max-width: 767px) {
   html::before {
     background-image:
       radial-gradient(
         950px 650px at 50% 0%,
-        rgba(255, 204, 153, 0.22),
+        rgba(27, 154, 170, 0.05),
         transparent 72%
-      ),
-      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.20'/%3E%3C/svg%3E");
-    background-repeat: no-repeat, repeat;
-    background-size: auto, 180px 180px;
-    background-position: 0 0, 0 0;
-    background-blend-mode: soft-light, soft-light;
+      );
+    background-repeat: no-repeat;
+    background-size: auto;
+    background-position: 0 0;
   }
 }
 
@@ -107,27 +86,42 @@ body {
   padding-top: 4rem; /* matches Nav h-16 (4rem) so content never goes under it */
   font-feature-settings: "liga" 1, "kern" 1;
   -webkit-font-smoothing: antialiased;
+
+  background-color: var(--bg);
+  background-image:
+    radial-gradient(
+      ellipse at 50% 0%,
+      rgba(27, 154, 170, 0.06) 0%,
+      transparent 60%
+    ),
+    radial-gradient(
+      ellipse at 80% 100%,
+      rgba(201, 79, 26, 0.08) 0%,
+      transparent 50%
+    );
 }
 
+/* Film grain — desaturated, blends into paper via multiply */
 body::after {
   content: "";
   position: fixed;
   inset: 0;
   z-index: 9999;
   pointer-events: none;
-  opacity: 0.04;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)'/%3E%3C/svg%3E");
+  opacity: 0.06;
+  mix-blend-mode: multiply;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)'/%3E%3C/svg%3E");
   background-repeat: repeat;
   background-size: 200px 200px;
 }
 
 ::selection {
-  background: rgba(158, 147, 255, 0.25);
-  color: var(--fg);
+  background: rgba(27, 154, 170, 0.25);
+  color: var(--text);
 }
 
 :focus-visible {
-  outline: 2px solid rgba(158, 147, 255, 0.55);
+  outline: 2px solid rgba(27, 154, 170, 0.55);
   outline-offset: 3px;
 }
 
@@ -164,23 +158,15 @@ body::after {
   }
 }
 
-@keyframes meshBlob1 {
-  0%   { transform: translate(0, 0) scale(1); }
-  33%  { transform: translate(15vw, 10vh) scale(1.1); }
-  66%  { transform: translate(5vw, 25vh) scale(0.95); }
-  100% { transform: translate(20vw, 15vh) scale(1.05); }
-}
-
-@keyframes meshBlob2 {
-  0%   { transform: translate(0, 0) scale(1); }
-  33%  { transform: translate(-12vw, -8vh) scale(1.08); }
-  66%  { transform: translate(-20vw, -15vh) scale(0.92); }
-  100% { transform: translate(-8vw, -20vh) scale(1.1); }
-}
-
 @media (prefers-reduced-motion: reduce) {
-  .mesh-blob-1,
-  .mesh-blob-2 {
+  canvas {
     animation-play-state: paused;
   }
+}
+
+.hiw-step-name {
+  transition: color 0.2s ease;
+}
+.hiw-step-name:hover {
+  color: var(--accent);
 }

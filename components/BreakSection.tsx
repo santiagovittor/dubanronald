@@ -80,6 +80,8 @@ export default function BreakSection({ locale = "en" }: BreakSectionProps) {
         width: "100%",
         minHeight: "100vh",
         backgroundColor: "var(--teal-deep)",
+        backgroundImage:
+          "radial-gradient(ellipse at 50% 0%, rgba(240,232,216,0.06) 0%, transparent 60%)",
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
@@ -125,10 +127,11 @@ export default function BreakSection({ locale = "en" }: BreakSectionProps) {
         <p
           ref={line1Ref}
           style={{
-            fontSize: "clamp(3rem, 7vw, 6rem)",
+            fontSize: "clamp(3.5rem, 7.5vw, 6.5rem)",
             color: "var(--cream)",
             fontWeight: "bold",
             lineHeight: "var(--leading-tight)",
+            fontFamily: "var(--font-cormorant)",
             margin: 0,
             opacity: 0,
           }}
@@ -138,10 +141,11 @@ export default function BreakSection({ locale = "en" }: BreakSectionProps) {
         <p
           ref={line2Ref}
           style={{
-            fontSize: "clamp(3rem, 7vw, 6rem)",
+            fontSize: "clamp(3.5rem, 7.5vw, 6.5rem)",
             color: "var(--orange)",
             fontWeight: "bold",
             lineHeight: "var(--leading-tight)",
+            fontFamily: "var(--font-cormorant)",
             margin: 0,
             opacity: 0,
           }}

@@ -1,7 +1,6 @@
 "use client"
 
 import { useEffect, useRef } from "react"
-import { GeistSans } from "geist/font/sans"
 
 type WhatWeDoProps = {
   locale?: "en" | "es"
@@ -109,6 +108,8 @@ export default function WhatWeDo({ locale = "en" }: WhatWeDoProps) {
             letterSpacing: "0.15em",
             color: "var(--muted)",
             textTransform: "uppercase",
+            fontFamily: "var(--font-cormorant)",
+            fontStyle: "italic",
           }}
         >
           {label}
@@ -133,7 +134,7 @@ export default function WhatWeDo({ locale = "en" }: WhatWeDoProps) {
           >
             <div className="mx-auto max-w-6xl px-6" style={{ position: "relative" }}>
               <span
-                className="group-hover:text-[var(--orange)] group-hover:-rotate-45"
+                className="group-hover:text-[var(--accent)] group-hover:-rotate-45"
                 style={{
                   position: "absolute",
                   top: 0,
@@ -160,13 +161,14 @@ export default function WhatWeDo({ locale = "en" }: WhatWeDoProps) {
               </span>
 
               <p
-                className={`${GeistSans.className} group-hover:text-[var(--orange)]`}
+                className="group-hover:text-[var(--accent)]"
                 style={{
                   fontSize: "clamp(3rem, 6vw, 5rem)",
                   fontWeight: "bold",
-                  color: "var(--cream)",
+                  color: "var(--text)",
                   lineHeight: "var(--leading-tight)",
                   transition: "color 0.3s ease",
+                  fontFamily: "var(--font-cormorant)",
                 }}
               >
                 {svc.name}

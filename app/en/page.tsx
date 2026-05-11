@@ -9,7 +9,7 @@ import ContactSection from "@/components/ContactSection"
 import Footer from "@/components/Footer"
 
 export const metadata: Metadata = {
-  title: "Duban Ronald — growth systems for digital acquisition",
+  title: "Duban Ronald | Growth systems for digital acquisition",
   description:
     "Digital acquisition, paid media, and performance infrastructure for teams that treat marketing as a system, not a campaign.",
 }
