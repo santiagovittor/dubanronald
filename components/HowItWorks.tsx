@@ -99,11 +99,11 @@ export default function HowItWorks({ locale = "en" }: HowItWorksProps) {
         onUpdate(self) {
           const p = self.progress
 
-          // Transitions centred at 1/3 and 2/3, each spanning 8% of scroll
+          // Sequential transitions, 14% each — no overlap, slower/more cinematic
           const states: StepState[] = [
-            stepState(p, -1, 0, 0.28, 0.36),      // step 0: visible from start, fades out 0.28→0.36
-            stepState(p, 0.28, 0.36, 0.61, 0.69),  // step 1: fades in 0.28→0.36, fades out 0.61→0.69
-            stepState(p, 0.61, 0.69, 2, 3),         // step 2: fades in 0.61→0.69, stays visible
+            stepState(p, -1,   0,    0.25, 0.39),  // step 0: visible from start, fades out 0.25→0.39
+            stepState(p, 0.39, 0.53, 0.58, 0.72),  // step 1: fades in 0.39→0.53, fades out 0.58→0.72
+            stepState(p, 0.72, 0.86, 2,   3),       // step 2: fades in 0.72→0.86, stays visible
           ]
 
           stepLayerRefs.current.forEach((el, i) => {
