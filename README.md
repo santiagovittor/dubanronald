@@ -1,36 +1,51 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Duban Ronald
 
-## Getting Started
+Marketing site for Duban Ronald, a paid media agency running Meta and Google Ads for business owners who are spending on ads and not seeing the leads to show for it. Live at [dubanronald.com](https://dubanronald.com).
 
-First, run the development server:
+The pitch is simple: ad spend isn't the same as lead generation. Most accounts leak qualified buyers somewhere between the click and the contact form, and the site's job is to make that case fast, then get someone to write in.
+
+## What's in the box
+
+- Bilingual routing, English at `/en` and Spanish at `/es`, plus a dedicated `/real-estate` landing page for that vertical
+- Meta Pixel and Meta Conversions API wired server-side through `app/api/meta/capi`, so conversion events survive ad blockers and iOS tracking limits
+- GSAP-driven scroll sections and a hand-rolled mesh gradient background instead of a stock hero image
+- Cormorant Garamond for display type against Inter for body copy, on a warm analog palette (cream, deep teal, burnt orange) instead of the default SaaS blue-on-white
+
+## Stack
+
+- Next.js 16, App Router
+- React 19
+- TypeScript, strict mode
+- Tailwind CSS v4 (`@import "tailwindcss"` in `globals.css`, no config file)
+- GSAP and Motion for animation
+- Deployed on Vercel
+
+## Running it locally
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Then open `http://localhost:3000`. It redirects to `/en` by default.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```bash
+npm run build       # production build
+npm run typecheck   # tsc, no emit
+npm run lint        # eslint
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Structure
 
-## Learn More
+```
+app/
+  en/                English routes
+  es/                Spanish routes
+  real-estate/       real estate landing page
+  api/meta/capi/     Meta Conversions API endpoint
+components/          Hero, Nav, Footer, Audience, Credibility, CTA, HowItWorks, WhatWeDo...
+lib/                 Meta Pixel helpers
+copy/                homepage copy source, English and Spanish
+```
 
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Built and maintained by [Santiago Vittor](https://github.com/santiagovittor).
